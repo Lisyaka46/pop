@@ -1,0 +1,5 @@
+com=taping{@
+	var@x = 1?
+	var@y = 6?
+	print(x = [x/*y/+x]);
+}/0?!

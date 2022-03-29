@@ -204,3 +204,29 @@ loading...x}
 >>> [Fri Mar 25 02:47:55 2022] Error 0g7502: your "self.answer" does not meet the requirements or contains an error in "main_menu"
 >>> [Fri Mar 25 02:52:09 2022] Error 0g7502: your "self.answer" does not meet the requirements or contains an error in "main_menu"
 :)> [Fri Mar 25 02:57:31 2022] Unexpected error 0g7503: System CRACH///
+>>> [Sat Mar 26 18:19:29 2022] Error syntax 0g7504: Mode tap1 incorrect
+>>> [Sat Mar 26 18:19:29 2022] Error 0g7502: your "self.answer" does not meet the requirements or contains an error in "ERROR"
+>>> [Sat Mar 26 18:19:29 2022] Unexpected error 0g7503: System CRACH///
+>>> [Sat Mar 26 18:31:36 2022] Error syntax 0g7504: The command <tap1> from ~mod is incorrect
+>>> [Sat Mar 26 18:36:09 2022] Error syntax 0g7504: The command <tap1> from ~mod is incorrect
+>>> [Sat Mar 26 18:41:35 2022] Error 0g7502: your "self.answer" does not meet the requirements or contains an error in "console_if"
+>>> [Sat Mar 26 18:41:35 2022] Unexpected error 0g7503: System CRACH///
+>>> [Sat Mar 26 19:14:55 2022] Error 0g7502: your "self.answer" does not meet the requirements or contains an error in "main_menu"
+>>> [Sat Mar 26 21:03:57 2022] Error 0g7502: your "self.answer" does not meet the requirements or contains an error in "main_menu"
+>>> [Sat Mar 26 21:19:00 2022] Error 0g7502: your "self.answer" does not meet the requirements or contains an error in "main_menu"
+>>> [Sat Mar 26 21:46:16 2022] Error 0g7502: your "self.answer" does not meet the requirements or contains an error in "main_menu"
+>>> [Sun Mar 27 15:28:11 2022] Error 0g7502: your "self.answer" does not meet the requirements or contains an error in "main_menu"
+>>> [Sun Mar 27 15:28:13 2022] Error 0g7502: your "self.answer" does not meet the requirements or contains an error in "main_menu"
+>>> [Sun Mar 27 15:28:13 2022] Error 0g7502: your "self.answer" does not meet the requirements or contains an error in "main_menu"
+>>> [Sun Mar 27 15:28:14 2022] Error 0g7502: your "self.answer" does not meet the requirements or contains an error in "main_menu"
+>>> [Sun Mar 27 15:29:05 2022] Error 0g7502: your "self.answer" does not meet the requirements or contains an error in "main_menu"
+>>> [Sun Mar 27 15:29:14 2022] Error 0g7502: your "self.answer" does not meet the requirements or contains an error in "main_menu"
+>>> [Mon Mar 28 18:27:58 2022] Error 0g7502: your "self.answer" does not meet the requirements or contains an error in "import_mode"
+>>> [Mon Mar 28 18:28:37 2022] Error 0g7502: your "self.answer" does not meet the requirements or contains an error in "main_menu"
+>>> [Mon Mar 28 18:28:47 2022] Error 0g7502: your "self.answer" does not meet the requirements or contains an error in "main_menu"
+>>> [Mon Mar 28 18:38:07 2022] Error 0g7502: your "self.answer" does not meet the requirements or contains an error in "main_menu"
+>>> [Mon Mar 28 18:46:01 2022] Error 0g7502: your "self.answer" does not meet the requirements or contains an error in "main_menu"
+>>> [Mon Mar 28 20:12:17 2022] Error 0g7502: your "self.answer" does not meet the requirements or contains an error in "main_menu"
+>>> [Mon Mar 28 23:14:31 2022] Error 0g7502: your "self.answer" does not meet the requirements or contains an error in "main_menu"
+>>> [Mon Mar 28 23:20:47 2022] Error 0g7502: your "self.answer" does not meet the requirements or contains an error in "import_mode"
+>>> [Mon Mar 28 23:21:02 2022] Error 0g7502: your "self.answer" does not meet the requirements or contains an error in "main_menu"

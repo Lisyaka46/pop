@@ -1,10 +1,7 @@
 class Error(): # Список ошибок или крашей в клиенте
 	def error(self, error_number, register_problem = None):
-		log = open('%s/log.log' % (self.dir_python_file))
-		log_txt = log.read() 
-		log.close()
+		log_txt, i.number_pos_txt = i.mini_function('log'), '0'
 		log = open('%s/log.log' % (self.dir_python_file), 'w')
-		i.number_pos_txt = '0'
 		if error_number != '0g7503':
 			self.audio_channel.play(self.MP3_Error)
 		else:
@@ -21,98 +18,71 @@ class Error(): # Список ошибок или крашей в клиенте
 			log.close()
 			i.position = 'Register'
 			i.register()
-		if error_number == '0g7502':
+		elif error_number == '0g7502':
 			print('%s Ошибка %s: Ваш "self.answer" не соответствует требованиям или содержит ошибку в "%s"' % (self.r_text_back_a, error_number, self.position))
 			log.write('%s\n%s [%s] Error %s: your "self.answer" does not meet the requirements or contains an error in "%s"' % (log_txt, self.r_text_back_a, asctime(), error_number, self.position))
 			log.close()
-			if self.position.find('bank') != -1:
-				self.ifip = 1
+			if self.position.find('bank') != -1: self.ifip = 1
 			if self.position == 'main_menu':
-				random = randint(0,4)
-				if random == 2:
+				if randint(0,4) == 2:
 					i.animas(txt = '%s Если ты не знаешь некоторых комманд попробуй ввести: "help"' % (self.r_text_back_a))
 				i.main_menu()
 			elif self.position == 'coin_Q':
 				print('%s Биржа' % (self.r_text_back_a))
-				if self.active_coin_Q == False and self.active_coin_ruble == False:
-					i.coin()
-				else:
-					i.coin_pr(True)
+				if self.active_coin_Q == False and self.active_coin_ruble == False: i.coin()
+				else: i.coin_pr(True)
 			elif self.position == 'console' or self.position == 'import_mode':
-				if self.console_programm == 0:
-					i.console_start()
+				if self.console_programm == 0: i.console_start()
 				elif self.console_programm == 2:
-					random = randint(0,4)
-					if random == 2:
+					if randint(0,4) == 2:
 						i.animas(txt = '%s Если ты не знаешь некоторых комманд попробуй ввести: "help"' % (self.r_text_back_a))
 					i.main_menu()
-			elif self.position == 'bank_b0':
-				i.bank()
-			elif self.position == 'bank_b1':
-				i.buy_vaule()
-			elif self.position == 'bank_b2':
-				i.buy_sum_rel()
-			elif self.position == 'game_play':
-				i.gl_games()
+			elif self.position == 'bank_b0': i.bank()
+			elif self.position == 'bank_b1': i.buy_vaule()
+			elif self.position == 'bank_b2': i.buy_sum_rel()
+			elif self.position == 'game_play': i.gl_games()
 			elif self.position == 'game':
-				random = randint(0,4)
-				if random == 2:
+				if randint(0,4) == 2:
 					i.animas(txt = '%s Если ты не знаешь некоторых комманд попробуй ввести: "help"' % (self.r_text_back_a))
 				i.main_menu()
-			elif self.position == 'messenger':
-				print('%s Мессенджер' % (self.r_text_back_a))
-				i.Messenger()
-			elif self.position == 'balanse_out':
-				i.Balanse_out_account()
-			elif self.position == 'rate':
-				self.rate_update = 0
-				i.rate_pr()
-			else:
-				i.error('0g7503')
-		if error_number == '0g7503':
-			print('%s Неожидаймая ошибка %s: Краш системы///\n%s Выход из файла' % (self.r_text_back_a, error_number, self.r_text_back_a))
-			log.write('%s\n%s [%s] Unexpected error %s: System CRACH///' % (log_txt, self.r_text_back_a, asctime(), error_number))
+			elif self.position == 'balanse_out': i.Balanse_out_account()
+			elif self.position == 'rate': self.rate_update = 0, i.rate_pr()
+			else: i.error('0g7503')
+		else:
+			if error_number == '0g7503':
+				print('%s Неожидаймая ошибка %s: Краш системы///\n%s Выход из файла' % (self.r_text_back_a, error_number, self.r_text_back_a))
+				log.write('%s\n%s [%s] Unexpected error %s: System CRACH///' % (log_txt, self.r_text_back_a, asctime(), error_number))
+			elif error_number == '0g7504':
+				print('%s Ошибка синтаксиса %s: Команда <%s> из ~мода некорректена\n%s %s, попробуй переустановить мод с этой командой' % (self.r_text_back_a, error_number, self.answer, self.r_text_back_a, self.name))
+				log.write('%s\n%s [%s] Error syntax %s: The command <%s> from ~mod is incorrect' % (log_txt, self.r_text_back_a, asctime(), error_number, self.answer))
+			elif error_number == '0g7506':
+				print('%s Ошибка договора %s: Вакансия отменена из-за превышения цен' % (self.r_text_back_a, error_number))
+				log.write('%s\n%s [%s] Contract error %s: The vacancy was canceled due to excess prices' % (log_txt, self.r_text_back_a, asctime(), error_number))
+			elif error_number == '0g7507':
+				print('%s Ошибка выполнения консольной программы меню %s: Команда оказалась системной - отказано в доступе...' % (self.r_text_back_a, error_number))
+				log.write('%s\n%s [%s] Error executing the console menu program %s: The command turned out to be a system one - access was denied...' % (log_txt, self.r_text_back_a, asctime(), error_number))
+			elif error_number == '0g7508':
+				if self.ip_ass == 3:
+					print('%s Ошибка импорта %s: Все моды уже за импортированы' % (self.r_text_back_a, error_number))
+					log.write('%s\n%s [%s] Import error %s: the all mods been imported' % (log_txt, self.r_text_back_a, asctime(), error_number))
+				else:
+					print('%s Ошибка импорта %s: Мод "%s" уже был за импортирован' % (self.r_text_back_a, error_number, self.answer))
+					log.write('%s\n%s [%s] Import error %s: the mod "%s" has already been imported' % (log_txt, self.r_text_back_a, asctime(), error_number, self.answer))
+			elif error_number == '0g7509':
+				print('%s Ошибка чтения файлов .viu %s: фаил "%s" не правильно записан или сохранён' % (self.r_text_back_a, error_number, self.answer))
+				log.write('%s\n%s [%s] Error reading files .viu %s: file "%s" is not correctly written or saved' % (log_txt, self.r_text_back_a, asctime(), error_number, self.answer))
 			log.close()
 			i.position = 'ERROR'
-			i.exit_file = True
-			self.audio_channel.play(self.MP3_Crash)
-			sleep(1.1)
-		if error_number == '0g7504':
-			print('%s Ошибка синтаксиса %s: Мод %s некорректен' % (self.r_text_back_a, error_number, self.answer))
-			log.write('%s\n%s [%s] Error syntax %s: Mode %s incorrect' % (log_txt, self.r_text_back_a, asctime(), error_number, self.answer))
-			log.close()
-			i.position = 'ERROR'
-		if error_number == '0g7506':
-			print('%s Ошибка договора %s: Вакансия отменена из-за превышения цен' % (self.r_text_back_a, error_number))
-			log.write('%s\n%s [%s] Error syntax %s: The vacancy was canceled due to excess prices' % (log_txt, self.r_text_back_a, asctime(), error_number))
-			log.close()
-			i.position = 'ERROR'
-			i.bank()
-		if error_number == '0g7507':
-			print('%s Ошибка выполнения консольной программы меню %s: Команда оказалась системной - отказано в доступе...' % (self.r_text_back_a, error_number))
-			log.write('%s\n%s [%s] Error syntax %s: The command turned out to be a system one - access was denied...' % (log_txt, self.r_text_back_a, asctime(), error_number))
-			log.close()
-			i.position = 'ERROR'
-		if error_number == '0g7508':
-			if self.ip_ass != 3:
-				print('%s Ошибка импорта %s: Мод "%s" уже был за импортирован' % (self.r_text_back_a, error_number, self.answer))
-				log.write('%s\n%s [%s] Import error %s: the mod "%s" has already been imported' % (log_txt, self.r_text_back_a, asctime(), error_number, self.answer))
-			elif self.ip_ass == 3:
-				print('%s Ошибка импорта %s: Все моды уже за импортированы' % (self.r_text_back_a, error_number))
-				log.write('%s\n%s [%s] Import error %s: the all mods been imported' % (log_txt, self.r_text_back_a, asctime(), error_number))
-			log.close()
-			i.position = 'ERROR'
-			if self.console_programm == 0:
-				i.console_start()
-			elif self.console_programm == 2:
-				i.main_menu()
-			else:
-				i.error('0g7503')
-		if error_number == '0g7509':
-			print('%s Ошибка чтения файлов .viu %s: фаил "%s" не правильно записан или сохранён' % (self.r_text_back_a, error_number, self.answer))
-			log.write('%s\n%s [%s] Error reading files .viu %s: file "%s" is not correctly written or saved' % (log_txt, self.r_text_back_a, asctime(), error_number, self.answer))
-			log.close()
-			i.position = 'ERROR'
+			if error_number == '0g7506': i.bank()
+			elif error_number == '0g7508':
+				if self.console_programm == 0: i.console_start()
+				elif self.console_programm == 2: i.main_menu()
+				else: i.error('0g7503')
+			elif error_number == '0g7503':
+				self.audio_channel.play(self.MP3_Crash)
+				if self.chill_change_return == 1: self.chill_change.kill()
+				sleep(1.1)
+				sys.exit(0)
 	pass
 class Console(Error): # Класс консоли в клиенте
 	def console_start(self): # Начало работы консоли
@@ -129,12 +99,9 @@ class Console(Error): # Класс консоли в клиенте
 		else:
 			i.error('0g7503')
 	def iF_console(self): # Проверка команды для консоли
-		self.position = 'console'
-		if len(self.answer) == 0 and self.console_programm != 4:
-			i.console_start()
+		if len(self.answer) == 0 and self.console_programm != 4: i.console_start()
 		elif self.answer == '/clear' or self.answer == '/cls' or self.answer == '/clear_console':
-			if self.console_programm == 2:
-				i.mini_function('menu_console')
+			if self.console_programm == 2: i.mini_function('menu_console')
 			if self.console_programm != 4:
 				i.clear_console()
 				print('%s Произведена очистка!' % (self.r_text_back_a))
@@ -142,10 +109,7 @@ class Console(Error): # Класс консоли в клиенте
 			else:
 				print('%s Команда "%s" отвечает за очистку консоли (через Консольную строку)' % (self.r_text_back_a, self.answer))
 				return True
-			if self.console_programm == 0:
-				i.console_start()
-			elif self.console_programm == 2:
-				i.main_menu()
+			i.mini_function('console_end_command')
 		elif self.answer == '<' or\
 		self.answer == 'exit' or\
 		self.answer == '/q':
@@ -166,40 +130,30 @@ class Console(Error): # Класс консоли в клиенте
 					i.read_modepacks()
 				else:
 					print('%s Вы уже обновили библиотеку модов' % (self.r_text_back_a))
-					if self.console_programm == 0:
-						i.console_start()
-					elif self.console_programm == 2:
-						i.main_menu()
+					i.mini_function('console_end_command')
 			else:
 				print('%s Команда "%s" отвечает за обновление библиотеки модов (через Консольную строку)' % (self.r_text_back_a, self.answer))
 				return True
 		elif self.answer == '/log read' or self.answer == '/log_read':
-			if self.console_programm == 2:
-				i.mini_function('menu_console')
-			if self.console_programm != 4:
-				i.log_file_change('log_read')
+			if self.console_programm == 2: i.mini_function('menu_console')
+			if self.console_programm != 4: i.log_file_change('log_read')
 			else:
 				print('%s Команда "%s" отвечает за прочтение файла log.log (через Консольную строку)' % (self.r_text_back_a, self.answer))
 				return True
 		elif self.answer == '/log note' or self.answer == '/log_note' or self.answer == '/note':
-			if self.console_programm == 2:
-				i.mini_function('menu_console')
-			if self.console_programm != 4:
-				i.log_file_change('note')
+			if self.console_programm == 2: i.mini_function('menu_console')
+			if self.console_programm != 4: i.log_file_change('note')
 			else:
 				print('%s Команда "%s" отвечает за создание в файле log.log заметки (через Консольную строку)' % (self.r_text_back_a, self.answer))
 				return True
 		elif self.answer == '/log clear' or self.answer == '/log_clear':
-			if self.console_programm == 2:
-				i.mini_function('menu_console')
-			if self.console_programm != 4:
-				i.log_file_change('log_clear')
+			if self.console_programm == 2: i.mini_function('menu_console')
+			if self.console_programm != 4: i.log_file_change('log_clear')
 			else:
 				print('%s Команда "%s" отвечает за очистку файла log.log (через Консольную строку)' % (self.r_text_back_a, self.answer))
 				return True
 		elif self.answer == '/import' or self.answer == '/imp':
-			if self.console_programm == 2:
-				i.mini_function('menu_console')
+			if self.console_programm == 2: i.mini_function('menu_console')
 			if self.console_programm != 4:
 				if self.console_mode_activate == True:
 					self.position = 'import_mode'
@@ -211,99 +165,71 @@ class Console(Error): # Класс консоли в клиенте
 			else:
 				print('%s Команда "%s" отвечает за импорт модов, доступно после обновления библ. модов (через Консольную строку)' % (self.r_text_back_a, self.answer))
 				return True
-			if self.console_programm == 0:
-				i.console_start()
-			elif self.console_programm == 2:
-				i.main_menu()
+			i.mini_function('console_end_command')
 		else:
 			if self.console_programm == 0 or self.console_programm == 4:
 				i.mode_command_check()
 			else:
 				i.error('0g7502')
 	def console_mode(self):
+		self.position, self.x = 'import_mode', 0
 		self.answer = input('Введите команду импорта или мод который вы хотите импортировать: ')
-		self.x = 0
 		i.import_console_mode()
 	def import_console_mode(self): # Импортирование модов или ветвь команд импорта в консоли
 		if self.answer == '<' or self.answer == '-' or self.answer == 'exit':
 			print('%s Выход из Импорта модов...' % (self.r_text_back_a))
-			if self.console_programm == 0:
-				i.console_start()
-			elif self.console_programm == 2:
-				i.main_menu()
-		elif self.answer == '/all' or self.answer == '/All' or self.answer == '/ALL'\
-		or self.answer == 'all' or self.answer == 'All' or self.answer == 'ALL':
-			if len(self.ModeFic_global[11]) == 0 or self.indif == 'compl':
+			i.mini_function('console_end_command')
+		elif self.answer.find == 'all':
+			if len(self.ModeFic_global[11]) == 0 or self.indif == 'complete':
 				self.indif = 'all'
 				if self.developer_mode == True:
-					print('all 618')
+					print('import mods all!')
 				if len(self.ModeFic_global[0]) > 0:
 					for self.x in range(len(self.ModeFic_global[0])):
 						self.answer = self.ModeFic_global[0][self.x]
 						if self.developer_mode == True:
-							print('2: %s / %s' % (self.x, len(self.ModeFic_global[0])))
-						sleep(2)
+							print('self.x: <%s>\nlen(self.ModeFic_global[0]): <%s>' % (self.x, len(self.ModeFic_global[0])))
 						i.pr_answer_mode()
 			elif len(self.ModeFic_global[11]) < len(self.ModeFic_global[0]):
 				self.pos_txt_system = 0
 				self.global_command_number_system = -1
 				print('%s Очистка импортированных модов...' % (self.r_text_back_a))
-				i.ModeFic_clear(9)
-				i.ModeFic_clear(10)
+				i.ModeFic_clear(9), i.ModeFic_clear(10)
 				if self.developer_mode == True:
 					print('+')
-				sleep(1)
-				self.indif = 'compl'
+				self.indif = 'complete'
 				i.import_console_mode()
 			elif len(self.ModeFic_global[11]) == len(self.ModeFic_global[0]):
 				print('%s %s, вы уже проимпортировали все установленные моды' % (self.r_text_back_a, self.pol_name))
 				self.ip_ass = 3
 				i.error('0g7508')
-		elif self.answer == 'delete' or self.answer == 'delete mods' or self.answer == 'delete_mods' or\
-		self.answer == '/delete' or self.answer == '/delete mods' or self.answer == '/delete_mods':
-			i.ModeFic_clear(9)
-			i.ModeFic_clear(13)
+		elif self.answer == 'delete':
+			i.ModeFic_clear(9), i.ModeFic_clear(13)
 			self.pos_txt_system = 0
-			if self.console_programm == 0:
-				print('%s Все моды успешно удалены из %s, вы можете их повторно импортировать' % (self.r_text_back_a, self.r_text_back_b))
-				self.audio_channel.play(self.MP3_Open)
-				i.console_start()
-			elif self.console_programm == 2:
-				self.audio_channel.play(self.MP3_Open)
-				print('<%s Все моды успешно удалены из %s, вы можете их повторно импортировать' % (self.r_text_back_a, self.r_text_back_b))
-				i.main_menu()
-		elif self.answer == 'info' or self.answer == '/info' or self.answer == 'Info' or self.answer == '/Info':
+			print('%s Все моды успешно удалены из %s\n%s Вы можете их повторно загрузить: /mode' % (self.r_text_back_a, self.r_text_back_b, self.r_text_back_a))
+			i.mini_function('console_end_command')
+		elif self.answer == 'info':
+			symbol = ''
+			if len(self.ModeFic_global[0]) > 1: symbol = 'ы'
 			if len(self.ModeFic_global[0]) != 0:
-				print('%s Мод(ы) установлен(ы)!\n...Мод(ы): ' % (self.r_text_back_a), end='')
+				print('...Мод%s: ' % (symbol), end='')
 				for x in self.ModeFic_global[0]:
-					if self.ModeFic_global[0].index(x) == len(self.ModeFic_global[0]):
-						print(x, end=', ')
-					else:
-						print(x)
-			else:
-				print('%s Никаких модов не установлено!' % (self.r_text_back_a))
-			if self.console_programm == 0:
-				self.position = 'import_mode'	
-				i.console_mode()
-			elif self.console_programm == 2:
-				i.main_menu()
+					if self.ModeFic_global[0].index(x) != len(self.ModeFic_global[0])-1: print(x, end=', ')
+					else: print(x)
+			else: print('%s Никаких модов не установлено!' % (self.r_text_back_a))
+			i.console_mode()
 		elif len(self.ModeFic_global[0]) > self.x:
-			if self.developer_mode == True:
-				print('self.x = %s' % (self.x))
-				print('len -> ModeFic_global[0] = %s' % (len(self.ModeFic_global[0])))
 			if len(self.ModeFic_global[0]) > 0:
 				for self.x in range(0, len(self.ModeFic_global[0])):
+					if self.developer_mode == True:
+						print('\rAnswer: <%s> | Mode: <%s>' % (self.answer, self.ModeFic_global[0][self.x]),end=' '*30)
 					if len(self.ModeFic_global[0]) > self.x:
-						if self.answer == self.ModeFic_global[0][self.x]:
-							break
+						if self.answer == self.ModeFic_global[0][self.x]: break
 				if self.answer == self.ModeFic_global[0][self.x]:
-					self.indif = 'Nall'
-					self.logic_control[0] = 'False'
+					self.indif, self.logic_control[0] = 'Nall', 'False'
 					i.read_mode_importing()
-				else:
-					i.error('0g7502')
-			else:
-				i.error('0g7502')
+				else: i.error('0g7502')
+			else: i.error('0g7502')
 	def pr_answer_mode(self): # Проверка названия мода для импорта
 		if self.developer_mode == True:
 			print('self.x: ', self.x)
@@ -332,249 +258,116 @@ class Console(Error): # Класс консоли в клиенте
 			print(self.indif)
 			print(self.ipp)
 			print('logic_control[0]: ', self.logic_control[0])
-		self.ModeFic_global[11].append(self.ModeFic_global[0][self.x])
-		self.mode = open('%s/ModePack/%s' % (self.dir_python_file, self.ModeFic_global[0][self.x]))
-		self.read_mode_import = self.ModeFic_global[0][self.x]
 		if self.logic_control[0] == 'False':
-			self.txt, self.txting, self.number_pos, self.visual_end_reading_modes, self.ip_ass = None, '', 0, False, 1
-			self.audio_channel.play(self.MP3_Warning)
-			if self.indif == 'all':
-				i.animas(txt = '%s Подождите идёт импорт всех модов...' % (self.r_text_back_a))
-			elif self.indif == 'Nall':
-				i.animas(txt = '%s Подождите идёт импорт мода "%s"...' % (self.r_text_back_a, self.answer))
-			self.cv_file_full = self.mode.read()
-			self.cv_file_full = len(self.cv_file_full)
+			self.ModeFic_global[11].append(self.ModeFic_global[0][self.x])
+			self.mode, self.read_mode_import = open('%s/ModePack/%s' % (self.dir_python_file, self.ModeFic_global[0][self.x])), self.ModeFic_global[0][self.x]
+			self.txt, self.txting, self.number_pos, self.visual_end_reading_modes, self.ip_ass, incident, sleep_command = None, '', 0, False, 1, 0, 0
+			mode_all_symbol = self.mode.read()
+			self.cv_file_full = len(mode_all_symbol)
 			self.mode.seek(0)
-			com = 'None' # Визуализация команды для developer_mode
-			while True:
+			self.audio_channel.play(self.MP3_Warning)
+			if self.indif == 'all': i.animas(txt = '%s Подождите идёт импорт всех модов...' % (self.r_text_back_a))
+			else: i.animas(txt = '%s Подождите идёт импорт мода "%s"...' % (self.r_text_back_a, self.answer))
+			while self.txt != '!':
 				self.txt = self.mode.read(1)
 				if self.developer_mode == True:
-					print('Position: <%s>\n' % (self.mode.tell()))
-					print('command: <%s>' % (com))
-					print('txt: <%s>' % (self.txt))
-					print('txting: <%s>' % (self.txting))
-					print('txting_check: <%s>' % (self.txting_check))
-				if self.txt == '=' or self.txt == '>':
-					self.txting_check = self.txting
-					self.txting = ''
+					i.mini_function('developer_import_info')
+				if self.txt == '=':
+					self.txting_check, self.txting = self.txting, ''
 				elif self.txt == '{' and self.txting_check == 'com':
 					if self.developer_mode == True:
-						print('Проверка совпадения команды с системными:')
-					self.command_txting = False
+						print('Проверка совпадения команды с системными!')
+					self.command_txting, self.txting_check = False, None
 					for y in self.all_commands:
 						for y1 in y:
 							if self.txting == y1:
+								symbol = '=='
 								self.command_txting = True
 								break
 							else:
-								if self.developer_mode == True:
-									print('\r '*20, end = '       ')
-									print('\rКоманда: "%s" != "%s"' % (self.txting, y1), end = '')
-									sleep(0.1)
+								symbol = '!='
+							if self.developer_mode == True:
+								print(' '*30, end = '')
+								print('\rКоманда: "%s" %s "%s"  ' % (self.txting, symbol, y1), end = '')
+								sleep(0.4)
 						if self.command_txting == True:
 							break
+					if self.developer_mode == True:
+						print()
 					if self.command_txting == False:
 						self.ModeFic_global[1].append(self.txting)
 						self.global_command_number_system += 1
+						self.import_command, self.txting = self.txting, ''
 						if self.developer_mode == True:
-							com = self.txting
-							print('Position: <%s>\n' % (self.mode.tell()))
-							print('command: <%s>' % (com))
-							print('txt: <%s>' % (self.txt))
-							print('txting: <%s>' % (self.txting))
-							print('txting_check: <%s>' % (self.txting_check))
-							print()
-						self.txting = ''
+							i.mini_function('developer_import_info')
 						while self.txt != '}':
 							self.txt = self.mode.read(1)
 							if self.developer_mode == True:
-								print('Position: <%s>\n' % (self.mode.tell()))
-								print('command: <%s>' % (com))
-								print('txt: <%s>' % (self.txt))
-								print('txting: <%s>' % (self.txting))
-								print('txting_check: <%s>' % (self.txting_check))
-								print()
-							if self.txt == '(':
+								i.mini_function('developer_import_info')
+							if self.txt == '@' and self.txting != 'var':
+								self.ModeFic_global[6].append('main_menu')
+								if self.developer_mode == True:
+									print('command_radar = main_menu')
+								self.txting = ''
+							elif self.txt == '(':
 								self.number_pos += 1
 								self.ModeFic_global[2].append(self.txting)
 								self.txting = ''
-								if self.txting != 'sleep':
+								if self.ModeFic_global[2][len(self.ModeFic_global[2])-1] == 'print':
 									while self.txt != ';':
 										self.txt = self.mode.read(1)
 										if self.developer_mode == True:
-											print('Position: <%s>\n' % (self.mode.tell()))
-											print('command: <%s>' % (com))
-											print('txt = <%s>' % (self.txt))
-											print('txting = <%s>' % (self.txting))
-											print('txting2 = <%s>' % (self.txting2))
-											print('txting3 = <%s>' % (self.txting3))
-											print('txting_N = <%s>' % (self.txting_N))
-											print('ipp_txt = <%s>' % (self.ipp_txt))
-											print()
+											i.mini_function('developer_import_info')
 										if self.txt == ')':
 											self.ModeFic_global[3].append(self.txting)
 											self.txting = ''
-										if self.txt == '[' or self.txt == '/':
-											if self.txt == '/':
-												self.txt = None
-												self.mode.seek(self.mode.tell() - 1)
+										if self.txt == '[':
 											if self.txting != '':
 												self.txting2 = self.txting
 												self.txting = ''
 											while self.txt != ']':
-												if self.txt == '/':
-													self.txt += self.mode.read(1)
-												else:
-													self.txt = self.mode.read(1)
+												self.txt = self.mode.read(1)
 												if self.developer_mode == True:
-													print('Position: <%s>\n' % (self.mode.tell()))
-													print('command: <%s>' % (com))
-													print('txt = <%s>' % (self.txt))
-													print('txting = <%s>' % (self.txting))
-													print('txting2 = <%s>' % (self.txting2))
-													print('txting3 = <%s>' % (self.txting3))
-													print('txting_N = <%s>' % (self.txting_N))
-													print('ipp_txt = <%s>' % (self.ipp_txt))
-													print()
-												if self.txt == ']':
-													for y in range(len(self.ModeFic_global[7])):
-														if self.developer_mode == True:
-															print('self.ModeFic[7][y] = <%s>' % (self.ModeFic_global[7][y]))
-															print('Position: <%s>\n' % (self.mode.tell()))
-															print('txt = <%s>' % (self.txt))
-															print('txting = <%s>' % (self.txting))
-															print('txting2 = <%s>' % (self.txting2))
-															print('txting3 = <%s>' % (self.txting3))
-															print('txting_N = <%s>' % (self.txting_N))
-															print()
-														if self.txting == self.ModeFic_global[7][y]:
-															if self.txting2 == None:
-																self.txting2 = self.ModeFic_global[8][y]
-															else:
-																self.txting2 += self.ModeFic_global[8][y]
-															if self.developer_mode == True:
-																print('Position: <%s>\n' % (self.mode.tell()))
-																print('txt = <%s>' % (self.txt))
-																print('txting = <%s>' % (self.txting))
-																print('txting2 = <%s>' % (self.txting2))
-																print('txting3 = <%s>' % (self.txting3))
-																print('txting_N = <%s>' % (self.txting_N))
-																print()
-															self.txting = self.txting2
-															self.txting2 = ''
-															break
-												elif self.txt == '/+':
-													while self.txt != ']':
+													i.mini_function('developer_import_info')
+												if self.txt == '/' or self.txt == ']':
+													if self.txt != ']':
 														self.txt = self.mode.read(1)
 														if self.developer_mode == True:
-															print('Position: <%s>\n' % (self.mode.tell()))
-															print('txt = <%s>' % (self.txt))
-															print('txting = <%s>' % (self.txting))
-															print('txting2 = <%s>' % (self.txting2))
-															print('txting3 = <%s>' % (self.txting3))
-															print('txting_N = <%s>' % (self.txting_N))
-															print('ipp_txt = <%s>' % (self.ipp_txt))
-														self.ipp_txt = self.mode.read(1)
-														self.mode.seek(self.mode.tell() - 1)
-														if self.ipp_txt == ']' or self.ipp_txt == '/':
-															if self.developer_mode == True:
-																print('Position: <%s>\n' % (self.mode.tell()))
-																print('txt = <%s>' % (self.txt))
-																print('txting = <%s>' % (self.txting))
-																print('txting2 = <%s>' % (self.txting2))
-																print('txting3 = <%s>' % (self.txting3))
-																print('txting_N = <%s>' % (self.txting_N))
-																print('ipp_txt = <%s>' % (self.ipp_txt))
-															if self.txt != ']' and\
-															self.txt != '\n' and\
-															self.txt != '\t':
-																self.txting3 += self.txt
-															for y in range(len(self.ModeFic__global[7])):
+															i.mini_function('developer_import_info')
+													if self.txting3 == '': self.txting3 = 0
+													if self.txting != '':
+														if self.txting.isdigit() != True:
+															for y in range(len(self.ModeFic_global[7])):
 																if self.developer_mode == True:
-																	print('len(self.ModeFic_global[7]) = <%s>' % (len(self.ModeFic_global[7])))
-																	print('self.ModeFic_global[7] = <%s>' % (self.ModeFic_global[7]))
-																	print('self.ModeFic_global[7][y] = <%s>' % (self.ModeFic_global[7][y]))
-																	print('Position: <%s>\n' % (self.mode.tell()))
-																	print('txt = <%s>' % (self.txt))
-																	print('txting = <%s>' % (self.txting))
-																	print('txting2 = <%s>' % (self.txting2))
-																	print('txting3 = <%s>' % (self.txting3))
-																	print('txting_N = <%s>' % (self.txting_N))
-																	print('ipp_txt = <%s>' % (self.ipp_txt))
-																	print('str(self.txting3) == self.ModeFic_global[7][y] -> <%s>' % (str(self.txting3) == self.ModeFic_global[7][y]))
-																	print()
-																if self.txting3 == self.ModeFic_global[7][y]:
-																	if self.txting_N == None:
-																		self.txting_N = int(self.ModeFic_global[8][y])
-																	else:
-																		self.txting_N += int(self.ModeFic_global[8][y])
-																	break
-															if self.txting != '':
-																for y in range(len(self.ModeFic_global[7])):
-																	if self.developer_mode == True:
-																		print('len(self.ModeFic_global[7]) = <%s>' % (len(self.ModeFic_global[7])))
-																		print('self.ModeFic_global[7] = <%s>' % (self.ModeFic_global[7]))
-																		print('self.ModeFic_global[7][y] = <%s>' % (self.ModeFic_global[7][y]))
-																		print('txting_N = <%s>' % (self.txting_N))
-																		print('txting = <%s>' % (self.txting))
-																		print('txt = <%s>' % (self.txt))
-																	if self.txting == self.ModeFic_global[7][y]:
-																		if self.txting_N != None:
-																			self.txting_N += int(self.ModeFic_global[8][y])
-																		else:
-																			self.txting_N = int(self.ModeFic_global[8][y])
-																		if self.developer_mode == True:
-																			print('Position: <%s>\n' % (self.mode.tell()))
-																			print('txt = <%s>' % (self.txt))
-																			print('txting = <%s>' % (self.txting))
-																			print('txting2 = <%s>' % (self.txting2))
-																			print('txting3 = <%s>' % (self.txting3))
-																			print('txting_N = <%s>' % (self.txting_N))
-																			print('ipp_txt = <%s>' % (self.ipp_txt))
-																		if self.txting2 != None:
-																			self.txting = self.txting2
-																			if self.ipp_txt == ']':
-																				if self.txting != '':
-																					self.txting = str(self.txting) + str(self.txting_N)
-																				else:
-																					self.txting = str(self.txting_N)
-																			self.txting2 = ''
-																			if self.ipp_txt == ']':
-																				self.txting_N = None
-																			self.txting3 = ''
-																		else:
-																			self.txting = ''
-																			if self.ipp_txt == ']':
-																				self.txting = str(self.txting_N)
-																				self.txting_N = None
-																			self.txting3 = ''
-																			self.ipp_txt = None
-																		break
-																break
-															else:
-																if self.ipp_txt == ']':
-																	if self.txting2 != None:
-																		self.txting = self.txting2
-																		self.txting2 = ''
-																	self.txting3 = ''
-																	if self.txting != '':
-																		self.txting = str(self.txting) + str(self.txting_N)
-																	else:
-																		self.txting = str(self.txting_N)
-																	self.txting_N = None
-																elif self.ipp_txt == '/':
-																	self.txting3 = ''
+																	print('len(self.ModeFic_global[7]: <%s>' % (len(self.ModeFic_global[7])))
+																	print('self.ModeFic_global[7]: <%s>' % (self.ModeFic_global[7]))
+																	print('self.ModeFic_global[7][y]: <%s>' % (self.ModeFic_global[7][y]))
+																	print('str(self.txting) == self.ModeFic_global[7][y]: <%s>' % (str(self.txting) == self.ModeFic_global[7][y]))
+																	i.mini_function('developer_import_info')
+																if self.txting == self.ModeFic_global[7][y]:
+																	self.txting = int(self.ModeFic_global[8][y])
 																	break
 														else:
-															if self.txt != ']' and\
-															self.txt != '\n' and\
-															self.txt != '\t':
-																self.txting3 += self.txt
-														i.print_importing()
-													break
+															self.txting = int(self.txting)
+														if self.txting3 != 0:
+															if element == '+': self.txting3 += self.txting
+															elif element == '-': self.txting3 -= self.txting
+															elif element == '*': self.txting3 *= self.txting
+															elif element == '/': self.txting3 /= self.txting
+															elif element == '\\': self.txting3 //= self.txting
+															elif element == '%': self.txting3 %= self.txting
+															elif element == '$': self.txting3 **= self.txting
+														else:
+															self.txting3 = self.txting
+														element = self.txt
+														self.txting = ''
+														if self.txt == ']':
+															self.txting += self.txting2 + str(self.txting3)
+															self.txting2, self.txting3 = '', ''
 												else:
-													if self.txt != ']' and\
-													self.txt != '/' and\
+													if self.txt != ';' and\
+													self.txt != ']' and\
+													self.txt != ')' and\
 													self.txt != '\n' and\
 													self.txt != '\t':
 														self.txting += self.txt
@@ -590,6 +383,8 @@ class Console(Error): # Класс консоли в клиенте
 								elif self.txting == 'sleep':
 									while self.txt != ')':
 										self.txt = self.mode.read(1)
+										if self.developer_mode == True:
+											i.mini_function('developer_import_info')
 										if self.txt == ')':
 											if self.txting.isnumeric() == True:
 												if int(self.txting) == 0:
@@ -602,7 +397,7 @@ class Console(Error): # Класс консоли в клиенте
 													self.ModeFic_global[3].append(str(self.txting))
 													self.txting2 = self.txting
 												self.txting = ''
-												self.Modefic_rez = 1
+												sleep_command = 1
 											else:
 												i.error('0g7504')
 										else:
@@ -614,6 +409,8 @@ class Console(Error): # Класс консоли в клиенте
 										i.print_importing()
 									while self.txt != ';':
 										self.txt = self.mode.read(1)
+										if self.developer_mode == True:
+											i.mini_function('developer_import_info')
 										if self.txt == '~':
 											if int(self.txting2) >= 3:
 												self.ModeFic_global[9].append('True')
@@ -646,17 +443,16 @@ class Console(Error): # Класс консоли в клиенте
 								while self.txt != ';':
 									self.txt = self.mode.read(1)
 									if self.developer_mode == True:
-										print('txt = %s' % (self.txt))
-										print('txting = %s' % (self.txting))
+										i.mini_function('developer_import_info')
 									if self.txt == ']':
-										if self.ModeFic_incident == 0:
+										if incident == 0:
 											self.ModeFic_global[3].append(self.txting)
 										else:
 											self.ModeFic_global[10].append(self.txting)
-											self.ModeFic_incident = 0
+											incident = 0
 										self.txting = ''
 									elif self.txt == ',' and self.txting == '__text__':
-										self.ModeFic_incident = 1
+										incident = 1
 										i.log_run('__text__')
 									else:
 										if self.txt != ';' and\
@@ -664,44 +460,23 @@ class Console(Error): # Класс консоли в клиенте
 										self.txt != '\t':
 											self.txting += self.txt
 									i.print_importing()
-							elif self.txt == '@' and self.txting != 'var':
-								self.ModeFic_global[6].append('main_menu')
-								if self.developer_mode == True:
-									print('command_radar = main_menu')
-								self.txting = ''
 							elif self.txt == '$':
 								self.txt, self.txting = None, ''
 								while self.txt != '$':
 									self.txt = self.mode.read(1)
 									if self.developer_mode == True:
-										print('txt = %s' % (self.txt))
-										print('txting = %s' % (self.txting))
+										i.mini_function('developer_import_info')
 									if self.txt == '$':
-										if self.txting == 'con_st' or\
-										self.txting == 'console_start':
-											self.ModeFic_global[6].append('console')
-										if self.txting == 'main_menu' or\
-										self.txting == 'menu':
-											self.ModeFic_global[6].append('main_menu')
-										elif self.txting == 'coin' or\
-										self.txting == 'C':
-											self.ModeFic_global[6].append('coin_Q')
-										elif self.txting == 'b1' or\
-										self.txting == 'bank1' or\
-										self.txting == 'bank_b1':
-											self.ModeFic_global[6].append('bank_b0')
-										elif self.txting == 'b2' or\
-										self.txting == 'bank2' or\
-										self.txting == 'bank_b2':
-											self.ModeFic_global[6].append('bank_b1')
-										elif self.txting == 'b3' or\
-										self.txting == 'bank3' or\
-										self.txting == 'bank_b3':
-											self.ModeFic_global[6].append('bank_b2')
+										if self.txting == 'con_st': self.ModeFic_global[6].append('console')
+										elif self.txting == 'main_menu': self.ModeFic_global[6].append('main_menu')
+										elif self.txting == 'coin': self.ModeFic_global[6].append('coin_Q')
+										elif self.txting == 'b1': self.ModeFic_global[6].append('bank_b0')
+										elif self.txting == 'b2': self.ModeFic_global[6].append('bank_b1')
+										elif self.txting == 'b3': self.ModeFic_global[6].append('bank_b2')
 										else:
 											i.error('0g7504')
 										if self.developer_mode == True:
-											print('command_radar = %s' % (self.ModeFic_global[6][len(self.ModeFic_global[6]) - 1]))
+											print('command_radar = <%s>' % (self.ModeFic_global[6][len(self.ModeFic_global[6]) - 1]))
 										self.txting = ''
 									else:
 										if self.txt != '\n' and\
@@ -710,11 +485,12 @@ class Console(Error): # Класс консоли в клиенте
 									i.print_importing()
 							elif self.txt == '@' and self.txting == 'var':
 								self.txting = ''
+								if self.developer_mode == True:
+									print('Считываем имя переменной!')
 								while self.txt != '=':
 									self.txt = self.mode.read(1)
 									if self.developer_mode == True:
-										print('txt = %s' % (self.txt))
-										print('txting = %s' % (self.txting))
+										i.mini_function('developer_import_info')
 									if self.txt == '=':
 										self.ModeFic_global[7].append(self.txting)
 										self.txting = ''
@@ -724,11 +500,12 @@ class Console(Error): # Класс консоли в клиенте
 										self.txt != ' ':
 											self.txting += self.txt
 									i.print_importing()
+								if self.developer_mode == True:
+									print('Считываем значение переменной!')
 								while self.txt != '?':
 									self.txt = self.mode.read(1)
 									if self.developer_mode == True:
-										print('txt = %s' % (self.txt))
-										print('txting = %s' % (self.txting))
+										i.mini_function('developer_import_info')
 									if self.txt == '?':
 										self.ModeFic_global[8].append(self.txting)
 										self.txting = ''
@@ -739,52 +516,50 @@ class Console(Error): # Класс консоли в клиенте
 											self.txting += self.txt
 									i.print_importing()
 							elif self.txt == '%':
-								self.txt = None
-								if self.txting == 'gl':
-									self.txting = ''
+								if self.txting == 'expl':
+									self.txting, self.txt = '', None
 									self.txt = self.mode.read(1)
+									if self.developer_mode == True:
+										i.mini_function('developer_import_info')
 									if self.txt == '(':
-										while self.txt != ';':
+										while self.txt != ')':
 											self.txt = self.mode.read(1)
+											if self.developer_mode == True:
+												i.mini_function('developer_import_info')
 											if self.txt == ')':
 												if self.len_ModeFic_expl == 0:
-													self.expl_indification = len(self.ModeFic_global[12])
+													expl_indification = len(self.ModeFic_global[12])
 													self.ModeFic_global[12].append(self.txting)
 													self.len_ModeFic_expl = 1
 												elif self.len_ModeFic_expl == 1:
-													self.ModeFic_global[12][self.expl_indification] = self.txting
+													self.ModeFic_global[12][expl_indification] = self.txting
 												self.txting = ''
 											else:
 												if self.txt != '\n' and\
-												self.txt != '\t' and\
-												self.txt != ';':
+												self.txt != '\t':
 													self.txting += self.txt
 									elif self.txt == '{':
-										while self.txt != ';':
+										while self.txt != '}':
 											self.txt = self.mode.read(1)
+											if self.developer_mode == True:
+												i.mini_function('developer_import_info')
 											if self.txt == '}':
-												if self.txting == '__info__':
-													self.txting = 'Обычный вывод текста в консоль'
-												elif self.txting == '__def__':
-													self.txting = 'Выполение функции перехода'
-												elif self.txting == '__on__':
-													self.txting = 'Включение чего-либо'
-												elif self.txting == '__off__':
-													self.txting = 'Выключение чего-либо'
-												else:
-													self.txting = '0'
+												if self.txting == '__info__': self.txting = 'Обычный вывод текста в консоль'
+												elif self.txting == '__def__': self.txting = 'Выполение функции перехода'
+												elif self.txting == '__on__': self.txting = 'Включение чего-либо'
+												elif self.txting == '__off__': self.txting = 'Выключение чего-либо'
+												else: self.txting = '0'
 												if self.len_ModeFic_expl == 0:
-													self.expl_indification = len(self.ModeFic_global[12])
+													self.expl_indification, self.len_ModeFic_expl = len(self.ModeFic_global[12]), 1
 													self.ModeFic_global[12].append(self.txting)
-													self.len_ModeFic_expl = 1
 												elif self.len_ModeFic_expl == 1:
 													self.ModeFic_global[12][self.expl_indification] = self.txting
 												self.txting = ''
 											else:
 												if self.txt != '\n' and\
-												self.txt != '\t' and\
-												self.txt != ';':
+												self.txt != '\t':
 													self.txting += self.txt
+											i.print_importing()
 							else:
 								if self.txt != '\n' and\
 								self.txt != '\t':
@@ -797,10 +572,7 @@ class Console(Error): # Класс консоли в клиенте
 						print('\n%s Команда "%s" <self.ModeFic_global> совпадает с системной командой в моде "%s"\n%s Остановка и очистка импорта' % (self.r_text_back_a, self.txting, self.read_mode_import, self.r_text_back_a))
 						i.ModeFic_clear(self.ipp)
 						i.error('0g7504')
-						if self.console_programm == 0:
-							i.console_mode()
-						elif self.console_programm == 2:
-							i.main_menu()
+						i.mini_function('console_end_command')
 				elif self.txt == '/':
 					self.number_pos += 1
 					self.ModeFic_global[4].append(self.number_pos)
@@ -808,12 +580,14 @@ class Console(Error): # Класс консоли в клиенте
 					self.pos_txt_system += self.number_pos
 					self.number_pos = 0
 					self.ModeFic_global[2].append('cl')
-					if self.Modefic_rez == 0:
+					if sleep_command == 0:
 						self.ModeFic_global[9].append('-')
 					else:
-						self.Modefic_rez = 0
+						sleep_command = 0
 					while self.txt != '?':
 						self.txt = self.mode.read(1)
+						if self.developer_mode == True:
+							i.mini_function('developer_import_info')
 						if self.txt == '?':
 							self.ModeFic_global[3].append(self.txting)
 							self.txting = ''
@@ -821,11 +595,6 @@ class Console(Error): # Класс консоли в клиенте
 							if self.txt != '?':
 								self.txting += self.txt
 						i.print_importing()
-				elif self.txt == '!':
-					if self.developer_mode == True:
-						print('Break, close mode')
-					self.logic_control[0] = 'End'	
-					break
 				else:
 					if self.txt != '=' and\
 					self.txt != '\n' and\
@@ -833,6 +602,9 @@ class Console(Error): # Класс консоли в клиенте
 					self.txt != '{':
 						self.txting += self.txt
 				i.print_importing()
+			if self.developer_mode == True:
+				print('Break, close mode')
+			self.logic_control[0] = 'End'
 			self.mode.close()
 			self.cv_file_full = 0
 			self.visual_end_reading_modes = False
@@ -840,7 +612,7 @@ class Console(Error): # Класс консоли в клиенте
 				print('logic_control[0]: ',self.logic_control[0])
 				print(self.logic_control[0] == 'End')
 		if self.logic_control[0] == 'End':
-			print('\n%s Импорт модов прошёл успешно!\n  Теперь вам доступны команды:' % (self.r_text_back_a))
+			print('\n%s Импорт модов прошёл успешно!\nТеперь вам доступны команды:' % (self.r_text_back_a))
 			if len(self.ModeFic_global[1]) != 0:
 				for y in range(len(self.ModeFic_global[1])):
 					print('  %s. %s' % (y + 1, self.ModeFic_global[1][y]))
@@ -859,65 +631,56 @@ class Console(Error): # Класс консоли в клиенте
 				print(self.ModeFic_global[11], 'Имя импортированных модов')
 				print(self.ModeFic_global[12], 'Поянение команд из модов')
 			self.audio_channel.play(self.MP3_Open)
-			if self.console_programm == 0:
-				i.console_start()
-			elif self.console_programm == 2:
-				i.main_menu()
+			i.mini_function('console_end_command')
+		else:
+			i.error('0g7503')
 	def print_importing(self):
-		self.printing_import_text = round(self.mode.tell() / (self.cv_file_full/100))
-		self.stoping = randint(1, 10)
-		self.sdi = self.stoping/5
 		if self.developer_mode == False:
+			self.printing_import_text = round(self.mode.tell() / (self.cv_file_full/100))
+			self.stoping = randint(1, 10)
+			self.sdi = self.stoping/5
 			if self.mode.tell() >= self.cv_file_full:
 				self.visual_end_reading_modes = True
-				print('\r%s: [100' % (self.read_mode_import) + R'%' + '/100' + R'%' + ']_%s/%s_(-- sdi)                                   '\
-				% (self.cv_file_full, self.cv_file_full), end = '  ')
+				print('\r%s: [100' % (self.read_mode_import) + R'%' + '/100' + R'%' + ']_%s/%s_(-- sdi)'\
+				% (self.cv_file_full, self.cv_file_full), end = '                                     ')
 			else:
 				if self.visual_end_reading_modes == False:
 					print('\r%s: [%s' % (self.read_mode_import, self.printing_import_text) + R'%' + '/100' + R'%' + ']_%s/%s_(%s sdi)                                   '\
 					% (self.mode.tell(), self.cv_file_full, round(100/(self.sdi*5))), end = '  ')
 			self.printing_import_text = None
-		sleep(self.sdi - (self.sdi / 2))
+			sleep(self.sdi - (self.sdi / 2))
 	pass
 class Brower(Error):
 	def brower_start(self):
 		sleep(0.1)
 		i.animas(loading = True, txt = '%s Загрузка браузера' % (self.r_text_back_a))
-		i.animas(loading = True, txt = '%s Создание панели' % (self.r_text_back_a))
-		i.animas(txt = '%s Готово!' % (self.r_text_back_a))
 		if self.developer_mode == True:
 			print(self.internet_start_str)
 		i.brower_main_menu()
 	def animas(self, loading = False, n = 0, txt = None):
-		if loading != False and loading != True:
-			loading = False
-		if n != 0 and n != 1:
-			n = 0
-		if txt != None:
-			self.internet_text_input = txt
-		for self.x in str(self.internet_text_input):
+		if loading != False and loading != True: loading = False
+		if n != 0 and n != 1: n = 0
+		for self.x in str(txt):
 			sleep(0.04)
-			if self.print_text_global == None:
-				self.print_text_global = self.x
+			self.print_text_global += self.x
+			if keyboard.is_pressed('Alt') != True:
+				print('\r%s' % (self.print_text_global), end='')
 			else:
-				self.print_text_global += self.x
-			sys.stdout.write(self.x)
-			sys.stdout.flush()
-		self.stoping = randint(1, 10)
-		self.sdi = self.stoping/5
+				while keyboard.is_pressed('Alt') != False: pass
+				print('\r%s' % (txt), end='')
+				break
 		if loading == True:
+			self.stoping = randint(1, 10)
+			self.sdi = self.stoping/5
 			for self.att in range(0, round(self.sdi*8)):
 				for y1 in range(0,3):
-					print('\r%s ' % (self.internet_text_input), end = self.loading_sym[y1] + ' ')
+					print('\r%s ' % (txt), end = self.loading_sym[y1] + ' ')
 					sleep(0.08)
-			print('\r%s ' % (self.internet_text_input), end = '√ ')
+			print('\r%s ' % (txt), end = '√ ')
 		sleep(0.2)
-		if n == 0:
-			print('')
-		elif n == 1:
-			print('\r', end = '')
-		self.internet_text_output = None
-		self.print_text_global = None
+		if n == 0: print('')
+		elif n == 1: print('\r', end = '')
+		self.print_text_global = ''
 	def brower_main_menu(self):
 		if self.internet_start_str == 'newstap':
 			i.animas(n = 1, txt = '%s Главная:' % (self.r_text_back_a))
@@ -1009,11 +772,9 @@ class Brower(Error):
 			if self.save_data_all == True:
 				i.saving_data('ALL')
 			if self.answer == 'information' or self.answer == '?' or self.answer == 'Информация' or self.answer == 'информация':
-				list_info = ['%s Информация браузера QRTG:' % (self.r_text_back_a),\
-				'___ 1. Все ссылки пишутся после знака "/" как агрумента',\
-				'___ 2. Поиски по браузеру осуществляются по аргументу "*satt" как ссылки по умолчанию',\
-				'___ 3. Если поиск оказался неизвестным то скорее всего "satt/<ваш запрос>" как ссылка была введена неверно',\
-				'___ 4. Ложные поиски можно открыть в обычном браузере по возможности...']
+				list_info = ['%s Поиски браузера QRTG:' % (self.r_text_back_a),\
+				'1. Предсказатель - Предсказывает по твоим словам!',\
+				'2. Погода - Какая погода у нас сегодня?']
 				for self.x in list_info:
 					i.animas(txt = self.x)
 				i.brower_search()
@@ -1144,13 +905,19 @@ class Command_importing(Error):
 			self.ModeFic_global[3].append(self.txting)
 			self.txting, self.txting2 = '', ''
 			self.txt = self.mode.read(1)
+			if self.developer_mode == True:
+				i.mini_function('developer_import_info')
 			if self.txt == '{':
 				while self.txt != '}':
 					self.txt = self.mode.read(1)
+					if self.developer_mode == True:
+						i.mini_function('developer_import_info')
 					if self.txt == '<':
 						if self.txting2 == None:
 							while self.txt != '>':
 								self.txt = self.mode.read(1)
+								if self.developer_mode == True:
+									i.mini_function('developer_import_info')
 								if self.txt != '>':
 									self.txting += self.txt
 								i.print_importing()
@@ -1166,15 +933,13 @@ class Command_importing(Error):
 						if self.txting2 != None:
 							for y in range(len(self.ModeFic_global[7])):
 								if self.txting2 == self.ModeFic_global[7][y]:
-									self.txting2 == self.ModeFic_global[8][y]
+									self.txting2 = self.ModeFic_global[8][y]
 									break
 							self.txting += self.txting2
 							self.txting2 = ''
 							self.mode.seek(self.mode.tell() - 1)
 					else:
-						if self.txt != '<' and\
-						self.txt != '>' and\
-						self.txt != '}' and\
+						if self.txt != '>' and\
 						self.txt != '\n' and\
 						self.txt != '\t':
 							self.txting2 += self.txt
@@ -1182,8 +947,8 @@ class Command_importing(Error):
 class II(Command_importing, Brower, Console, Error): # Глобальный класс для клиента
 	# Начало Start
 	def __init__(self): # Постоянно активная функция для переменных
-		self.dir_python_file = os.path.dirname(os.path.abspath(__file__)) # Директория в которой находится исполняемый python фаил
-		self.MP3_Hello_file = pygame.mixer.Sound('%s/Mp3_QRTG-effects/Hello.mp3' % (self.dir_python_file)) # Начало работы файла - приветствие
+		self.dir_python_file = os.getcwd() # Директория в которой находится исполняемый python фаил
+		self.MP3_Hello_file = pygame.mixer.Sound('%s/Mp3_QRTG-effects/client_start.mp3' % (self.dir_python_file)) # Начало работы файла - приветствие
 		self.MP3_Bye_file = pygame.mixer.Sound('%s/Mp3_QRTG-effects/Bye_Doun.mp3' % (self.dir_python_file)) # Окончание работы файла - прощание
 		self.MP3_Open_account = pygame.mixer.Sound('%s/Mp3_QRTG-effects/Open_account.mp3' % (self.dir_python_file)) # Успешный вход в аккаунт
 		self.MP3_Open = pygame.mixer.Sound('%s/Mp3_QRTG-effects/Open.mp3' % (self.dir_python_file)) # Включение
@@ -1196,9 +961,6 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 		self.MP3_Client_byebye = pygame.mixer.Sound('%s/Mp3_QRTG-effects/client_bye-bye.mp3' % (self.dir_python_file)) # Завершение работы клиента QRTG
 		self.MP3_Test_volume = pygame.mixer.Sound('%s/Mp3_QRTG-effects/Test_volume.mp3' % (self.dir_python_file)) # Проверка громкости QRTG
 		self.exit_gl_command = 0 # Выход из глобальных команд (0;1)
-		self.txting3 = '' # Запасная запись self.txting переменной при чтении фаила
-		self.txting_N = None # Запись какого-нибудь значения при чтении фаила
-		self.txting2 = '' # Запасная запись self.txting переменной при чтении фаила
 		self.ipp_txt = None # Сохраняемый символ под индикатор окончания при чтении фаила
 		self.ipp = None # Системный невозврат - индекс
 		self.pol_name = '' # Полное имя
@@ -1208,12 +970,14 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 		self.ip_ass = 0 # Индекс для импортирования (0 - нет импорта ; 1 - идёт импорт ; 'end' - закончен ; 3 - ошибка 0g7508)
 		self.indif = '0' # Какой импорт по количеству модов ('all' - все;'Nall' - один)
 		self.answer = None # Ответ На строке или вопрос
-		self.ip_pol_system = False # Начальный запуск строки или нет (True;False)
 		self.console_programm = 0 # Является ли команда консольной? (0-False;1-None;2-True)
-		self.txt = 0 # Символ в текстовом документе
 		self.name = None # Имя аккаунта
+		self.txt = 0 # Символ в текстовом документе
 		self.txting = '' # Слово или текст для "self.txt"
+		self.txting2 = '' # Запасная запись self.txting переменной при чтении фаила
+		self.txting3 = '' # Запасная запись self.txting переменной при чтении фаила
 		self.txting_check = None # Проверяющее слово или текст для "self.txt"
+		self.txting_N = None # Запись какого-нибудь значения при чтении фаила
 		self.position = None # Место нахождения
 		self.password = None # Пароль от аккаунта
 		self.pre_coin_Q = 0 # Прошлая стоимость qC
@@ -1223,17 +987,10 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 		self.pos_txt_system = 0 # Запись номера отсчёта в системной команде при чтении
 		self.console_mode_activate = False # Обновили ли пакет модов (True;False)
 		self.number_pos = 0 # Позиция подсчёта команд при чтении
-		self.inporting_pov_system = 0 # Проверка одинаковых системных модов в папке (0;1)
-		self.inporting_pov_persenal = 0 # Проверка одинаковых персональных модов в папке (0;1)
 		self.mon = None # Определитель месяца
 		self.printing_time = None # Вывод полноценного времени и даты
-		self.inint_answer_number = None # Случайная цифра разветвления разговора
-		self.pre_answer_alisa = None # Сохранённый ответ от "self.answer"
-		self.exit_alisa = 0 # Выход или заморозка разговора с ботом "Алиса"
 		self.random_global_number_save = None # Любое сохранённое рандомное число
 		self.open_new = None # Какое открытие заголовка новое или нет (1;0)
-		self.activate_importing_messenger = None # Открыт ли мессенджер (True;False)
-		self.information_h0 = None # Выводимый текст при заблокированном мессенджере
 		self.import_act = None # Какой мод импортируется Последний или нет (True;False)
 		self.N = None # Значение формулы "3N+1 and N/2"
 		self.att = 0 # Подсчёт повторений для всего
@@ -1246,28 +1003,26 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 		self.audio_channel = pygame.mixer.find_channel() # Аудио канал для звуков QRTG
 		if os.path.isfile('%s/TF/RebootinformationpanelQRTG.tf' % (self.dir_python_file)) != True:
 			self.chill_change = None # Управляющая переменная файлом "Chill_change.py"
-		self.chill_change_return = None # Включен ли фаил "Chill_change.py"
+		self.chill_change_return = 0 # Включен ли фаил "Chill_change.py" (1;0)
 		self.settings_master = 0 # Включён ли режим "master" в настройках QRTG (1;0)
 		self.sleep_night = 0 # Запрет активации QRTG ночью (1;0)
 		self.clear_console = lambda: os.system('cls') # Очистка консоли
-		self.developer_mode = None # Режим разработчика (True;False)
+		self.developer_mode = False # Режим разработчика (True;False)
 		self.save_data_all = True # Сохраняются ли данные автоматически (True;False)
 		self.Magic_loading = [] # Магическая загрузка
 		self.Magic_loading2 = [] # Магическая загрузка 2
 		self.desktop_log = 0 # Анимация фонового времени (0;3)
-		self.all_commands = []
+		self.all_commands = [] # Все команды записываемые из "0_6.viu"
 		self.command_txting = False # Совпадает ли команда из мода с системной (True;False)
-		self.activate_magic_loading = None # Включена ли магическая загрузка (True;False)
+		self.activate_magic_loading = False # Включена ли магическая загрузка (True;False)
 		self.text_invisible = ' ' # Невидимый текст для паролей
 		self.loading_sym = ['/','—','\\','|'] # Символы загрузки
-		self.loading_default = [] # Обысчная закрузка
-		self.command_mode = 0 # Проверка мод-команд на пояснение (1;0)
+		self.loading_default = [] # Обысчная закрузка (по кадрово)
 		self.visual_end_reading_modes = False # Визуальное окончание чтения модов (True;False)
 		self.exit_file = False # Выход из файла (True;False)
 		self.re_boot = 0 # Произойдёт ли перезагрузка клиента (1;0)
-		self.in_num = 0 # Показывать ли кнопки быстрой передачи (1;0)
-		self.print_text_global = None # Выводимый текст для приложения
-		self.logic_control = ['None','None'] # Управление логикой и функциями, значения см. в справочник. (*0300)
+		self.print_text_global = '' # Выводимый текст для приложения
+		self.logic_control = ['None'] # Управление логикой и функциями, значения см. в справочник. (*0300)
 		self.brower_chrome = None # Браузер для общедоступных данных
 		# internet \/ -----------------------------------------------------------------------------------------------------------------------------------------------------------|
 		self.internet_text_input = [] # Задаваемый текст для подсимвольного вывода
@@ -1288,19 +1043,17 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 		self.Saving_Global_data = [] # Запись определённых сохраняемых переменных и распределение при открытии клиента
 		# save /\ --------------------------------------------------------------------------------------------------------------------------------------------------------------|
 		# coin \/ --------------------------------------------------------------------------------------------------------------------------------------------------------------|
-		self.ans_value = None # Название валюты для проверки
-		self.cheque = None # Чек
+		self.Q = 0 # Баланс qC
 		self.coin_Q = None # Стоимость qC
 		self.active_coin_Q = None # Изменяется ли qC (True;False)
-		self.code_coin_Q = 0 # Код для qC
+		self.ruble = 0 # Баланс ruble
 		self.coin_ruble = None # Стоимость ruble
 		self.active_coin_ruble = None # Изменяется ли ruble (True;False)
-		self.code_coin_ruble = 0 # Код для ruble
 		self.global_t = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]]# 0 - qC, 1 - ruble, 2 - rate, 3 - global_com (Время: отсчёта, сравнения, проверки)
-		self.ruble = 0 # Баланс ruble
-		self.Q = 0 # Баланс qC
 		self.coin_ruble_Q_pos = False # Изменилась ли цена валют "ruble" и "Q" (True;False)
-		self.rate_name = [] # Ники, названия ставок
+		self.ans_value = None # Название валюты для проверки
+		self.cheque = None # Чек
+		self.rate_name = [] # Ники пользователей, названия ставок
 		self.rate_price = [] # Цена ставок
 		self.rate_price_coin = [] # Валюта для цены ставок
 		self.rate_profit = [] # Прибыль ставок
@@ -1316,35 +1069,13 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 		# coin /\ --------------------------------------------------------------------------------------------------------------------------------------------------------------|
 		# Modes \/ -------------------------------------------------------------------------------------------------------------------------------------------------------------|
 		#\/
-		self.global_command_number_system = -1 # номер системной команды ровно по списку (не используется) при чтении
-		self.pos_mode_persenal = -1 # Позиция записи значения в определённую переменную при чтении данных в персональных модах
-		self.pos_mode_system = -1 # Позиция записи значения в определённую переменную при чтении данных в системных модах
+		self.global_command_number_system = -1 # номер системной команды ровно по списку при чтении
 		self.mode = None # Импортированный мод
 		self.read_mode_import = None # Импортируемый мод
-		self.ModeFic_incident = 0 # Произошёл какой то особый случай (1;0)
 		self.len_ModeFic_expl = 0 # Была ли произведена запись в expl (1;0)
 		self.expl_indification = None # В какую позицию списка записано пояснение команды
-		#/\
-		# persenal
-		# |
-		# system
+		self.import_command = None # Какая команда импортируется
 		self.ModeFic_global = [] # Modefic список всех видов, см в справочник
-		self.ModeFic = [] # имя СИСТЕМНЫХ модов
-		self.ModeFic_command = [] # имя команд
-		self.ModeFic_command_c = [] # название действий в команде
-		self.ModeFic_command_vc = [] # итог действий в команде
-		self.ModeFic_command_number_c = [] # кол-во действий в команде
-		self.ModeFic_command_number = [] # начало отсчёта действий в команде
-		self.ModeFic_command_verson = [] # место выполнения команды
-		self.ModeFic_command_per = [] # имя переменной
-		self.ModeFic_command_per_vc = [] # значение переменной
-		self.ModeFic_sleep_vc = [] # итог вывода сообщения в команде об спящем режиме
-		self.ModeFic_log_write_print = [] # Ввод своего текста в log.log
-		self.ModeFic_global_command_number_c = [] # номер команды ровно по списку (не используется)
-		self.Modefic_rez = 0 # разница (не использовать......)
-		self.ModeFic_mode_importing = [] # имя импортированных СИСТЕМНЫХ модов
-		self.ModeFic_expl = [] # Пояснение для команды из пользовательских модов
-		self.Modefic_true_persenal_command = 0 # Присутствует ли в Modefic вложенный список Modefic_persenal (0;1)
 		# Modes /\ -------------------------------------------------------------------------------------------------------------------------------------------------------------|
 		# Change \/ ------------------------------------------------------------------------------------------------------------------------------------------------------------|
 		self.r_text_name_global_var = ['self.r_text_back_a', 'self.r_text_back_b', 'self.r_text_back_c', 'self._r_text_a','self.r_text_back_transition'] # Названия текстовых переменных
@@ -1367,7 +1098,6 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 			self.ModeFic_global[7] = []
 			self.ModeFic_global[8] = []
 			self.ModeFic_global[9] = []
-			self.Modefic_rez = 0
 			self.ModeFic_global[11] = []
 			self.ModeFic_global[12] = []
 		elif set_ipp == 13:
@@ -1403,145 +1133,80 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 			if self.console_programm != 4:
 				i.error('0g7502')
 	def start_job(self): # Начало работы или старт клиента
-		self.file = open('%s/Viu/0_4.viu' % (self.dir_python_file))
-		while self.txt != ';':
-			self.txt = self.file.read(1)
-			if self.txt == ';':
-				self.audio_vol = float(self.txting)
-				self.audio_channel.set_volume(self.audio_vol)
-			else:
-				if self.txt != '{':
-					self.txting += self.txt
-		self.file.close()
-		self.txting = ''
 		self.audio_channel.play(self.MP3_Hello_file)
 		self.file = open('%s/Saven.dll' % (self.dir_python_file))
-		self.txt = self.file.read(1)
-		if self.txt == '{':
-			self.file.seek(0)
-			while self.txt != '}':
-				self.txt = self.file.read(1)
-				if self.developer_mode == True:
-					print('txt = %s' % (self.txt))
-					print('txting = %s' % (self.txting))
-				elif self.txt == ';' or self.txt == '}':
-					self.Saving_Global_data.append(self.txting)
-					self.txting = ''
-					if self.txt == '}':
-						self.file.close()
-				else:
-					if self.txt != '{' and\
-					self.txt != '}' and\
-					self.txt != ';':
-						self.txting += self.txt
-			for y in range(len(self.Saving_Global_data)):
-				if y == 0:
-					self.pos_txt_system = int(self.Saving_Global_data[y])
-				elif y == 1:
-					self.number_pos = int(self.Saving_Global_data[y])
-				elif y == 2:
-					self.global_command_number_system = int(self.Saving_Global_data[y])
-				elif y == 3:
-					self.chill_change_return = int(self.Saving_Global_data[y])
-				elif y == 4:
-					self.sleep_night = int(self.Saving_Global_data[y])
-				elif y == 5:
-					if self.Saving_Global_data[y] == 'True' or self.Saving_Global_data[y] == '1':
-						self.developer_mode = True
-					else:
-						self.developer_mode = False
-				elif y == 6:
-					if self.Saving_Global_data[y] == 'True' or self.Saving_Global_data[y] == '1':
-						self.save_data_all = True
-					else:
-						self.save_data_all = False
-				elif y == 7:
-					if self.Saving_Global_data[y] == 'True' or self.Saving_Global_data[y] == '1':
-						self.activate_magic_loading = True
-					else:
-						self.activate_magic_loading = False
-				elif y == 8:
-					self.desktop_log = int(self.Saving_Global_data[y])
-			if os.path.isfile('%s/TF/RebootinformationpanelQRTG.tf' % (self.dir_python_file)) == True:
-				self.file = open('%s/TF/RebootinformationpanelQRTG.tf' % (self.dir_python_file))
-				self.tf_information = self.file.read()
-				self.file.close()
-				os.remove('%s/TF/RebootinformationpanelQRTG.tf' % (self.dir_python_file))
-			if self.tf_information != 'REBOOT':
-				if self.chill_change_return == 1:
-					self.chill_change = subprocess.Popen([sys.executable, 'Chill_change.py'])
-			else:
-				self.tf_information = None
+		while self.txt != '.':
+			self.txt = self.file.read(1)
+			if self.developer_mode == True:
+				print('self.txt: <%s>' % (self.txt))
+				print('self.txting: <%s>\n' % (self.txting))
+			elif self.txt == ';' or self.txt == '.':
+				self.Saving_Global_data.append(self.txting)
+				self.txting = ''
+			else: self.txting += self.txt
+		self.file.close()
+		for y in range(len(self.Saving_Global_data)):
+			if y == 0: self.pos_txt_system = int(self.Saving_Global_data[y])
+			elif y == 1: self.number_pos = int(self.Saving_Global_data[y])
+			elif y == 2: self.global_command_number_system = int(self.Saving_Global_data[y])
+			elif y == 3: self.chill_change_return = int(self.Saving_Global_data[y])
+			elif y == 4: self.sleep_night = int(self.Saving_Global_data[y])
+			elif y == 5:
+				if self.Saving_Global_data[y] == 'True': self.developer_mode = True
+				else: self.developer_mode = False
+			elif y == 6:
+				if self.Saving_Global_data[y] == 'True': self.save_data_all = True
+				else: self.save_data_all = False
+			elif y == 7:
+				if self.Saving_Global_data[y] == 'True': self.activate_magic_loading = True
+				else: self.activate_magic_loading = False
+			elif y == 8: self.desktop_log = int(self.Saving_Global_data[y])
+		if os.path.isfile('%s/TF/RebootinformationpanelQRTG.tf' % (self.dir_python_file)) == True:
+			self.file = open('%s/TF/RebootinformationpanelQRTG.tf' % (self.dir_python_file))
+			self.tf_information = self.file.read()
+			self.file.close()
+			os.remove('%s/TF/RebootinformationpanelQRTG.tf' % (self.dir_python_file))
+		if self.tf_information != 'REBOOT':
+			if self.chill_change_return == 1:
+				self.chill_change = subprocess.Popen([sys.executable, 'Chill_change.py'])
+		else:
+			self.tf_information = None
 		self.file.close()
 		i.animas(loading = True, txt = '%s Подготовка к работе %s' % (self.r_text_back_a, self.r_text_back_b))
 		coin = open('%s/Coin.txt' % (self.dir_python_file))
-		while self.txt != ']':
+		while self.txt != '{':
 			self.txt = coin.read(1)
-			if self.txt == ';' or\
-			self.txt == ':' or\
-			self.txt == ']':
+			if self.txt == ';' or self.txt == '{':
 				if self.pos_txt_coin == 0:
 					self.coin_Q = int(self.txting)
-					self.pos_txt_coin += 1
-					self.txting = ''
 				elif self.pos_txt_coin == 1:
-					if self.txting == '1' or\
-					self.txting == 'True':
-						self.active_coin_Q = True
-					elif self.txting == '0' or\
-					self.txting == 'False':
-						self.active_coin_Q = False
-					self.pos_txt_coin += 1
-					self.txting = ''
+					if self.txting == 'True': self.active_coin_Q = True
+					elif self.txting == 'False': self.active_coin_Q = False
 				elif self.pos_txt_coin == 2:
-					self.code_coin_Q = self.txting
-					self.pos_txt_coin += 1
-					self.txting = ''
+					self.coin_ruble = int(self.txting)
 				elif self.pos_txt_coin == 3:
-					self.coin_ruble = self.txting
-					self.pos_txt_coin += 1
-					self.txting = ''
-				elif self.pos_txt_coin == 4:
-					if self.txting == '1' or\
-					self.txting == 'True':
-						self.active_coin_ruble = True
-					elif self.txting == '0' or\
-					self.txting == 'False':
-						self.active_coin_ruble = False
-					self.pos_txt_coin += 1
-					self.txting = ''
-				elif self.pos_txt_coin == 5:
-					self.code_coin_ruble = self.txting
-					self.pos_txt_coin = 0
-					self.txting = ''
-			elif self.txt != 'Q' and\
-			self.txt != '[' and\
-			self.txt != 'P' and\
-			self.txt != ':' and\
-			self.txt != '(' and\
-			self.txt != ')':
+					if self.txting == 'True': self.active_coin_ruble = True
+					elif self.txting == 'False': self.active_coin_ruble = False
+				self.txting = ''
+			else:
+				self.pos_txt_coin += 1
 				self.txting += self.txt
 		while self.txt != '}':
-			self.txt = coin.read(1)
 			if self.txt == '{':
-				coin.read(1)
-				coin.read(1)
-				while self.txt != ']':
+				while self.txt != ':':
 					self.txt = coin.read(1)
-					if self.txt == ']':
+					if self.txt == ':':
 						self.Q = self.txting
 					else:
 						self.txting += self.txt
-				coin.read(1)
-				coin.read(1)
-				while self.txt != ']':
+				while self.txt != '}':
 					self.txt = coin.read(1)
-					if self.txt == ']':
+					if self.txt == '}':
 						self.ruble = self.txting
 					else:
 						self.txting += self.txt
+		self.pos_txt_coin, self.txting = 0, ''
 		coin.close()
-		self.txting = ''
 		i.animas(txt = '%s Чтение вашего паспорта %s...' % (self.r_text_back_a, self.r_text_back_b))
 		system = open('%s/SYSTEM.txt' % (self.dir_python_file))
 		self.txt = system.read(1)
@@ -1564,10 +1229,9 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 		system.close()
 		self.txt, self.txting = None, ''
 		i.animas(txt = '%s Чтение .viu файлов...' % (self.r_text_back_a))
-		list_info = ['0_1.viu','0_2.viu','0_6.viu','0_7.viu']
+		list_info = ['0_1.viu','0_6.viu','0_7.viu']
 		for self.x in list_info:
 			i.jik_read(self.x, open('%s/Viu/%s' % (self.dir_python_file, self.x)))
-			self.txt, self.txting = None, ''
 		i.animas(txt = '%s Чтение модов...' % (self.r_text_back_a))
 		if self.position != 'ERROR':
 			self.txt, self.txting, new_command_list = None, '', True
@@ -1896,28 +1560,21 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 				elif self.gl_time[3] >= 0 and self.gl_time[3] <= 5:
 					i.animas(txt = '%s Добр%s пользователь!' % (self.r_text_back_a, list_info[3]))
 				if self.sleep_night == 1 and self.gl_time[3] >= 0 and self.gl_time[3] <= 5:
-					list_info = ['%s Вам пора спать, утром продолжите работу...' % (self.r_text_back_a),\
-					'%s отдыхайте' % (self.r_text_back_a),'%s QRTG заботится о тебе!' % (self.r_text_back_a),\
-					'%s Утром ещё встретимся' % (self.r_text_back_a)]
-					for self.x in list_info:
-						i.animas(txt = self.x)
-					sleep(2)
-					i.exit_poduct()
+					i.mini_function('sleep')
 				else:
 					i.animas(txt = '%s Вы не зарегестрированы на %s, пожалуйста зарегестрируйтесь' % (self.r_text_back_a, self.r_text_back_b))
-					self.position = 'Register'
-					self.number_pos_txt = '1'
+					self.position, self.number_pos_txt = 'Register', '1'
 					i.register()
 			else:
 				list_info = ['ое утро','ый день','ый вечер','ой ночи']
 				if self.gl_time[3] >= 6 and self.gl_time[3] <= 12:
-					i.animas(txt = '%s Добр%s! %s' % (self.r_text_back_a, list_info[0], self.pol_name))
+					i.animas(txt = '%s Добр%s %s!' % (self.r_text_back_a, list_info[0], self.pol_name))
 				elif self.gl_time[3] >= 13 and self.gl_time[3] <= 18:
-					i.animas(txt = '%s Добр%s! %s' % (self.r_text_back_a, list_info[1], self.pol_name))
+					i.animas(txt = '%s Добр%s %s!' % (self.r_text_back_a, list_info[1], self.pol_name))
 				elif self.gl_time[3] >= 19 and self.gl_time[3] <= 23:
-					i.animas(txt = '%s Добр%s! %s' % (self.r_text_back_a, list_info[2], self.pol_name))
+					i.animas(txt = '%s Добр%s %s!' % (self.r_text_back_a, list_info[2], self.pol_name))
 				elif self.gl_time[3] >= 0 and self.gl_time[3] <= 5 and self.sleep_night == 0:
-					i.animas(txt = '%s Добр%s! %s' % (self.r_text_back_a, list_info[3], self.pol_name))
+					i.animas(txt = '%s Добр%s %s!' % (self.r_text_back_a, list_info[3], self.pol_name))
 				i.password_account(True)
 	def jik_read(self, file, system_info): # Чтение системных индекаторов-файлов .viu
 		self.answer = file
@@ -1961,80 +1618,14 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 						i.exit_poduct()
 				else:
 					self.txting += self.txt
-		elif file == '0_2.viu':
-			while self.txt != '!':
+		elif file == '0_4.viu':
+			while self.txt != ';':
 				self.txt = system_info.read(1)
-				if self.txt == '{':
-					if self.txting == '__mess__':
-						self.txting = ''
-						while self.txt != '}':
-							self.txt = system_info.read(1)
-							if self.txt == '-':
-								if self.txting == 'gM':
-									self.txting = ''
-									while self.txt != ';':
-										self.txt = system_info.read(1)
-										if self.txt == ';':
-											if self.txting == 'True':
-												self.activate_importing_messenger = True
-												self.txting = ''
-											elif self.txting == 'False':
-												self.activate_importing_messenger = False
-												self.txting = ''
-											else:
-												i.error('0g7509')
-												sleep(2)
-												i.exit_poduct()
-										else:
-											self.txting += self.txt
-								elif self.txting == 'h0':
-									self.txting = ''
-									while self.txt != ';':
-										self.txt = system_info.read(1)
-										if self.txt == ';':
-											if self.activate_importing_messenger != True:
-												if self.txting == '0' or self.txting == 'None':
-													self.information_h0 = 'Мессенджер заблокирован, отказано в доступе'
-													self.txting = ''
-												elif self.txting == '1':
-													self.information_h0 = 'Мессенджер заблокирован, идут технические работы'
-													self.txting = ''
-												elif self.txting == '2':
-													self.information_h0 = 'Мессенджер заблокирован, идёт регулировка сообщений'
-													self.txting = ''
-												elif self.txting == '3':
-													self.information_h0 = 'Мессенджер заблокирован, происходит добавление нового пользователя'
-													self.txting = ''
-												else:
-													i.error('0g7509')
-													sleep(2)
-													i.exit_poduct()
-										else:
-											self.txting += self.txt
-								else:
-									i.error('0g7509')
-									sleep(0.2)
-									if self.txting.find('gM') != -1:
-										i.animas(txt = '%s Текст похож на ключевое слово (gM) исправте ошибку' % (self.r_text_back_a))
-									elif self.txting.find('h0') != -1:
-										i.animas(txt = '%s Текст похож на ключевое слово (h0) исправте ошибку' % (self.r_text_back_a))
-									else:
-										i.animas(txt = '%s Не удалось выявить похожие ключевые слова для ошибочного текста' % (self.r_text_back_a))
-									sleep(0.5)
-									i.exit_poduct()
-							else:
-								self.txting += self.txt
-					else:
-						i.error('0g7509')
-						sleep(0.2)
-						if self.txting.find('__mess__') != -1:
-							i.animas(txt = '%s Текст похож на ключевое слово (__mess__) исправте ошибку' % (self.r_text_back_a))
-						else:
-							i.animas(txt = '%s Не удалось выявить похожие ключевые слова для ошибочного текста' % (self.r_text_back_a))
-						sleep(0.5)
-						i.exit_poduct()
+				if self.txt == ';':
+					self.audio_vol, self.txting = float(self.txting), ''
 				else:
-					self.txting += self.txt
+					if self.txt != '{':
+						self.txting += self.txt
 		elif file == '0_6.viu':
 			new_command_list = True
 			while self.txt != '.':
@@ -2074,11 +1665,11 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 				print(self.all_commands)
 				print(self.rate_random_name)
 		system_info.close()
+		self.txt, self.txting = None, ''
 	def password_account(self, start_fun = False): # Ввод пароля пользователя
 		if start_fun == True:
 			att_account = 0
-			self.att = randint(0, 1)
-			if self.att == 1:
+			if randint(0, 1) == 1:
 				if self.gl_time[3] >= 6 and self.gl_time[3] <= 12:
 					self.internet_text_input = '%s Наверно вы выспались %s' % (self.r_text_back_a, self.pol_name)
 				elif self.gl_time[3] >= 13 and self.gl_time[3] <= 18:
@@ -2087,16 +1678,9 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 					self.internet_text_input = '%s Именно %s, добрейший вечерочек)' % (self.r_text_back_a, self.pol_name)
 				elif self.gl_time[3] >= 0 and self.gl_time[3] <= 5:
 					self.internet_text_input = '%s %s наверно вы устали...' % (self.r_text_back_a, self.pol_name)
-				i.animas()
+				i.animas(txt = self.internet_text_input)
 		if self.sleep_night == 1 and self.gl_time[3] >= 0 and self.gl_time[3] <= 5:
-			list_info = ['%s Вам пора спать, утром продолжите работу...' % (self.r_text_back_a),\
-			'%s отдыхайте' % (self.r_text_back_a),'%s QRTG заботится о тебе!' % (self.r_text_back_a),\
-			'%s Утром ещё встретимся' % (self.r_text_back_a)]
-			for self.x in list_info:
-				self.internet_text_input = self.x
-				i.animas()
-			sleep(2)
-			i.exit_poduct()
+			i.mini_function('sleep')
 		else:
 			if self.developer_mode == True:
 				print(self.ModeFic_global[0], 'Имя загруженных модов')
@@ -2121,7 +1705,7 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 					self.global_t[1][0] = time()
 				self.global_t[2][0] = time()
 				self.audio_channel.play(self.MP3_Open_account)
-				i.animas(n = 1, txt = '%s Добро пожаловать %s' % (self.r_text_back_a, self.name))
+				i.animas(txt = '%s Добро пожаловать %s' % (self.r_text_back_a, self.name))
 				i.animas(txt = '%s Версия %s "%s"' % (self.r_text_back_a, self.r_text_back_b, self.version))
 				if att_account >= 4:
 					print('%s %s, пожалуйста запомните свой пароль от аккаунта... Это важно' % (self.r_text_back_a, self.pol_name))
@@ -2138,9 +1722,7 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 				self.audio_channel.play(self.MP3_Denial)
 				att_account += 1
 				if att_account == 6:
-					log = open('%s/log.log' % (self.dir_python_file))
-					log_txt = log.read()
-					log.close()
+					log_txt = i.mini_function('log')
 					log = open('%s/log.log' % (self.dir_python_file), 'w')
 					log.write('%s\n%s [%s] Была произведена попытка возможного взлома аккаунта!!!' % (log_txt, self.r_text_back_a, asctime()))
 					log.close()
@@ -2149,28 +1731,14 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 					i.exit_poduct()
 				else:
 					i.password_account()
-	def exit_poduct(self):
-		self.file = open('%s/TF/ClosepanelQRTG.tf' % (self.dir_python_file), 'w')
-		self.file.close()
-		sleep(0.12)
-		self.audio_channel.play(self.MP3_Bye_file)
-		self.audio_channel.play(self.MP3_Client_byebye)
-		self.exit_file = True
-		i.animas(txt = '%s Завершение работы...' % (self.r_text_back_a))
-		sleep(2)
-		if self.chill_change_return == 1:
-			self.chill_change.kill()
-		sys.exit(0)
 	def register(self): #  Регистрация для клиента
 		if self.number_pos_txt == '1':
 			self.answer = input('Никнейм: ')
 			self.name = self.answer
 			print('%s Подождите, идёт проверка никнейма...' % (self.r_text_back_a))
 			sleep(1)
-			if self.name.find('&') != -1:
-				i.error('0g7500', '&')
-			elif self.name.find('/') != -1:
-				i.error('0g7500', '/')
+			if self.name.find('&') != -1: i.error('0g7500', '&')
+			elif self.name.find('/') != -1: i.error('0g7500', '/')
 			elif len(self.answer) == 0:
 				print('%s Никнейм не может быть пустым' % (self.r_text_back_a))
 				i.error('0g7500', 0)
@@ -2186,10 +1754,8 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 			self.password = self.answer
 			print('%s Подождите, идёт проверка пароля...' % (self.r_text_back_a))
 			sleep(1)
-			if self.password.find('&') != -1:
-				i.error('0g7501', '&')
-			elif self.password.find('/') != -1:
-				i.error('0g7501', '/')
+			if self.password.find('&') != -1: i.error('0g7501', '&')
+			elif self.password.find('/') != -1: i.error('0g7501', '/')
 			elif len(self.answer) == 0:
 				print('%s Пароль не может быть пустым' % (self.r_text_back_a))
 				i.error('0g7501', 0)
@@ -2231,20 +1797,13 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 			self.printing_time += '0%s.' % (self.gl_time[1])
 		else:
 			self.printing_time += '%s.' % (self.gl_time[1])
-		if self.time_week_day.find('Mon') != -1:
-			self.time_week_day = 'Понедельник'
-		elif self.time_week_day.find('Tue') != -1:
-			self.time_week_day = 'Вторник'
-		elif self.time_week_day.find('Wed') != -1:
-			self.time_week_day = 'Среда'
-		elif self.time_week_day.find('Thu') != -1:
-			self.time_week_day = 'Четверг'
-		elif self.time_week_day.find('Fri') != -1:
-			self.time_week_day = 'Пятница'
-		elif self.time_week_day.find('Sat') != -1:
-			self.time_week_day = 'Суббота'
-		elif self.time_week_day.find('Sun') != -1:
-			self.time_week_day = 'Воскресенье'
+		if self.time_week_day.find('Mon') != -1: self.time_week_day = 'Понедельник'
+		elif self.time_week_day.find('Tue') != -1: self.time_week_day = 'Вторник'
+		elif self.time_week_day.find('Wed') != -1: self.time_week_day = 'Среда'
+		elif self.time_week_day.find('Thu') != -1: self.time_week_day = 'Четверг'
+		elif self.time_week_day.find('Fri') != -1: self.time_week_day = 'Пятница'
+		elif self.time_week_day.find('Sat') != -1: self.time_week_day = 'Суббота'
+		elif self.time_week_day.find('Sun') != -1: self.time_week_day = 'Воскресенье'
 		self.printing_time += '%sг.\n%s %s/%s\n%s Время:' % (self.gl_time[0], self.r_text_back_a, self.mon, self.time_week_day, self.r_text_back_a)
 		self.printing_time += ' %s' % (self.gl_time[3])
 		if min < 10:
@@ -2261,21 +1820,52 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 		elif fun == 'menu_console':
 			print('%s Такая программа есть в консоли\n%s Выполняем...' % (self.r_text_back_a, self.r_text_back_a))
 			sleep(0.6)
+		elif fun == 'log':
+			log = open('%s/log.log' % (self.dir_python_file))
+			log_txt = log.read()
+			log.close()
+			return log_txt
+		elif fun == 'note':
+			note = open('%s/note.txt' % (self.dir_python_file))
+			note_txt = note.read()
+			note.close()
+			return note_txt
+		elif fun == 'console_end_command':
+			if self.console_programm == 0: i.console_start()
+			elif self.console_programm == 2: i.main_menu()
+		elif fun == 'sleep':
+			list_info = ['%s Вам пора спать, утром продолжите работу...' % (self.r_text_back_a),\
+			'%s отдыхайте' % (self.r_text_back_a),'%s QRTG заботится о тебе!' % (self.r_text_back_a),\
+			'%s Утром ещё встретимся' % (self.r_text_back_a)]
+			for self.x in list_info:
+				self.internet_text_input = self.x
+				i.animas()
+			sleep(2)
+			i.exit_poduct()
+		elif fun == 'developer_import_info':
+			print('Position: <%s>' % (self.mode.tell()))
+			print('command: <%s>' % (self.import_command))
+			print('txt: <%s>' % (self.txt))
+			print('txting: <%s>' % (self.txting))
+			print('txting2: <%s>' % (self.txting2))
+			print('txting3: <%s>' % (self.txting3))
+			print('txting_N: <%s>' % (self.txting_N))
+			print('txting_check: <%s>' % (self.txting_check))
+			print('ipp_txt: <%s>\n' % (self.ipp_txt))
+			while keyboard.is_pressed('Alt') != True: pass
+			while keyboard.is_pressed('Alt') != False: pass
 	def main_menu(self): # Главное меню для клиента
-		if (self.re_boot != 1) or (self.exit_file != True):
-			self.position = 'main_menu'
-			self.number_pos_txt = '0'
-			self.ipp = None
-			i.animas(n = 1, txt = 'Командная строка:')
-			self.answer = input('Командная строка: ')
-			i.iF_main_menu()
+		self.position = 'main_menu'
+		self.number_pos_txt = '0'
+		self.ipp = None
+		i.animas(n = 1, txt = 'Командная строка:')
+		self.answer = input('Командная строка: ')
+		i.iF_main_menu()
 	def iF_main_menu(self): # Проверка команды в главном меню клиента (*0302)
 		self.x = 0
 		if self.console_programm == 4 and self.developer_mode == True:
 			print('+')
-		if len(self.answer) == 0:
-			if self.console_programm != 4:
-				i.main_menu()
+		if len(self.answer) == 0 and self.console_programm != 4: i.main_menu()
 		elif self.answer == '/' or self.answer == 'console':
 			if self.console_programm != 4:
 				self.console_programm = 0
@@ -2291,17 +1881,11 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 					sleep(1.2)
 					self.console_programm = 2
 					i.iF_console()
-				else:
-					i.error('0g7502')
+				else: i.error('0g7502')
 			else:
-				if i.iF_console() == True:
-					return True
-		elif self.answer == 'coin' or\
-		self.answer == 'stock market' or\
-		self.answer == 'stock' or\
-		self.answer == 'market':
-			if self.console_programm != 4:
-				i.coin_pr(True)
+				if i.iF_console() == True: return True
+		elif self.answer == 'coin' or self.answer == 'stock market' or self.answer == 'stock' or self.answer == 'market':
+			if self.console_programm != 4: i.coin_pr(True)
 			else:
 				print('%s Команда "%s" отвечает за открытие биржи с прямым каналом' % (self.r_text_back_a, self.answer))
 				return True
@@ -2314,8 +1898,7 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 				return True
 		elif self.answer == 'reboot':
 			if self.console_programm != 4:
-				if self.save_data_all == True:
-					i.saving_data('ALL')
+				if self.save_data_all == True: i.saving_data('ALL')
 				i.clear_console()
 				i.animas(loading = True, txt = '%s Перезагрузка %s' % (self.r_text_back_a, self.r_text_back_b))
 				sleep(1)
@@ -2324,20 +1907,11 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 				print('%s Команда "%s" отвечает за глобальную перезагрузку системы %s' % (self.r_text_back_a, self.answer, self.r_text_back_b))
 				return True
 		elif self.answer == 'quit_':
-			if self.console_programm != 4:
-				i.exit_file_client()
+			if self.console_programm != 4: i.exit_file_client()
 			else:
 				print('%s Команда "%s" отвечает за выход из приложения %s' % (self.r_text_back_a, self.answer, self.r_text_back_b))
 				return True
-		elif self.answer == 'gl_command' or\
-		self.answer == 'glcom' or\
-		self.answer == 'gl_com' or\
-		self.answer == 'global_com' or\
-		self.answer == 'global_command' or\
-		self.answer == 'global command' or\
-		self.answer == 'help' or\
-		self.answer == 'Help' or\
-		self.answer == '?':
+		elif self.answer == 'gl_command' or self.answer == 'glcom' or self.answer == 'gl_com' or self.answer == 'global_com' or self.answer == 'global_command' or self.answer == 'global command' or self.answer == 'help' or self.answer == 'Help' or self.answer == '?':
 			if self.console_programm != 4:
 				if self.global_t[3][0] != 0:
 					self.global_t[3][1] = time()
@@ -2386,67 +1960,14 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 				return True
 		elif self.answer == 'data_desktop' or self.answer == 'gl_data_desktop' or self.answer == 'gldata_desktop' or self.answer == 'desktop':
 			if self.console_programm != 4:
-				self.att = 0
 				while True:
 					if keyboard.is_pressed('Backspace') == True:
 						while keyboard.is_pressed('Backspace') != False:
+							i.Times_desktop(self.gl_time[1], self.gl_time[2], self.gl_time[3], self.gl_time[4], self.gl_time[5])
 							pass
 						break
-					elif keyboard.is_pressed('Up') == True:
-						while keyboard.is_pressed('Up') != False:
-							pass
-						if self.desktop_log != 2:
-							self.desktop_log += 1
-						else:
-							self.desktop_log = 0
-						if self.save_data_all == True:
-							i.saving_data('Data_system')
-						self.att = 0
-					elif keyboard.is_pressed('Down') == True:
-						while keyboard.is_pressed('Down') != False:
-							pass
-						if self.desktop_log != 0:
-							self.desktop_log -= 1
-						else:
-							self.desktop_log = 2
-						if self.save_data_all == True:
-							i.saving_data('Data_system')
-						self.att = 0
-					else:
-						self.att += 1
-						i.Times_desktop(self.gl_time[1], self.gl_time[2], self.gl_time[3], self.gl_time[4], self.gl_time[5])
-						if self.desktop_log == 0:
-							if self.att == 1:
-								print('\r-  --  --  --  --  --  --  --  --  --  --  --| %s |  --  --  --  --  --  --  --  --  --  --  -- ' % (self.printing_time), end = "  ")
-							elif self.att == 2:
-								print('\r  --  --  --  --  --  --  --  --  --  --  -- | %s | --  --  --  --  --  --  --  --  --  --  --  ' % (self.printing_time), end = "  ")
-							elif self.att == 3:
-								print('\r --  --  --  --  --  --  --  --  --  --  --  | %s |--  --  --  --  --  --  --  --  --  --  --  -' % (self.printing_time), end = "  ")
-							elif self.att == 4:
-								print('\r--  --  --  --  --  --  --  --  --  --  --  -| %s |-  --  --  --  --  --  --  --  --  --  --  --' % (self.printing_time), end = "  ")
-								self.att = 0
-						elif self.desktop_log == 1:
-							if self.att == 1:
-								print('\r  --  --  --  --  --  --  --  --  --  --  -- | %s | --  --  --  --  --  --  --  --  --  --  --  ' % (self.printing_time), end = "  ")
-							elif self.att == 2:
-								print('\r --  --  --  --  --  --  --  --  --  --  --  | %s |  --  --  --  --  --  --  --  --  --  --  -- ' % (self.printing_time), end = "  ")
-							elif self.att == 3:
-								print('\r--  --  --  --  --  --  --  --  --  --  --  -| %s |-  --  --  --  --  --  --  --  --  --  --  --' % (self.printing_time), end = "  ")
-							elif self.att == 4:
-								print('\r-  --  --  --  --  --  --  --  --  --  --  --| %s |--  --  --  --  --  --  --  --  --  --  --  -' % (self.printing_time), end = "  ")
-								self.att = 0
-						elif self.desktop_log == 2:
-							if self.att == 1:
-								print('\r------------------ |STOP| -------------------| %s |------------------ |STOP| -------------------' % (self.printing_time), end = "  ")
-							elif self.att == 2:
-								print('\r------------------ /STOP/ -------------------| %s |------------------ /STOP/ -------------------' % (self.printing_time), end = "  ")
-							elif self.att == 3:
-								print('\r------------------ —STOP— -------------------| %s |------------------ —STOP— -------------------' % (self.printing_time), end = "  ")
-							elif self.att == 4:
-								print('\r------------------ \\STOP\\ -------------------| %s |------------------ \\STOP\\ -------------------' % (self.printing_time), end = "  ")
-								self.att = 0
-						sleep(0.08)
-				print('\n', end = "")
+					i.Times_desktop(self.gl_time[1], self.gl_time[2], self.gl_time[3], self.gl_time[4], self.gl_time[5])
+				print()
 				i.main_menu()
 			else:
 				print('%s Команда "%s" отвечает за активацию панели отдыха с анимациями' % (self.r_text_back_a, self.answer))
@@ -2466,6 +1987,7 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 				return True
 		elif self.answer == 'print' or self.answer == 'print()':
 			if self.console_programm != 4:
+				i.animas(n = 1, txt = '%s Что %s вы хотите вывести?:' % (self.r_text_back_a, self.pol_name))
 				self.print_global_text = input('%s Что %s вы хотите вывести?: ' % (self.r_text_back_a, self.pol_name))
 				print('%s %s' % (self.r_text_back_a, self.print_global_text))
 				i.main_menu()
@@ -2483,8 +2005,7 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 				print('%s Команда "%s" отвечает за очистку консоли' % (self.r_text_back_a, self.answer))
 				return True
 		elif self.answer == 'brower' or self.answer == 'bros':
-			if self.console_programm != 4:
-				i.brower_start()
+			if self.console_programm != 4: i.brower_start()
 			else:
 				print('%s Команда "%s" отвечает за открытие браузера %s' % (self.r_text_back_a, self.answer, self.r_text_back_b))
 				return True
@@ -2505,7 +2026,9 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 				print('%s Команда "%s" отвечает за системные/текстовые изменения %s' % (self.r_text_back_a, self.answer, self.r_text_back_b))
 				return True
 		else:
-			i.mode_command_check()
+			if self.console_programm != 4: i.mode_command_check()
+			else:
+				if i.mode_command_check() == True: return True
 	def Balanse_out_account(self):
 		self.position = 'balanse_out'
 		print('%s %s на вашем балансе %s рублей/ %s Coin-Q' % (self.r_text_back_a, self.name, self.ruble, self.Q))
@@ -2518,8 +2041,7 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 			elif self.answer == '<' or self.answer == 'exit':
 				i.animas(loading = True, txt = '%s Выход из вывода денежных средств' % (self.r_text_back_a))
 				i.main_menu()
-			else:
-				i.error('0g7502')
+			else: i.error('0g7502')
 		elif self.att == 1:
 			self.answer = input('Введите сумму списания %s: ' % (self.ans_value))
 			if self.answer.isnumeric() == True:
@@ -2544,37 +2066,24 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 					print('%s Возвращение на одну позицию назад <-' % (self.r_text_back_a))
 					self.att -= 1
 					i.Balanse_out_account()
-				else:
-					i.error('0g7502')
+				else: i.error('0g7502')
 		elif self.att == 2:
 			if self.ans_value == 'R' or self.ans_value == 'r':
-				if self.cheque == None:
-					self.cheque = '∑/'
-				else:
-					self.cheque += '∑/'
+				if self.cheque == None: self.cheque = '∑/'
+				else: self.cheque += '∑/'
 			elif self.ans_value == 'Q' or self.ans_value == 'q':
-				if self.cheque == None:
-					self.cheque = '⨊/'
-				else:
-					self.cheque += '⨊/'
+				if self.cheque == None: self.cheque = '⨊/'
+				else: self.cheque += '⨊/'
 			if int(self.answer) > 100:
-				if self.cheque == None:
-					self.cheque = 'Fx+/'
-				else:
-					self.cheque += 'Fx+/'
+				if self.cheque == None: self.cheque = 'Fx+/'
+				else: self.cheque += 'Fx+/'
 			elif int(self.answer) < 100:
-				if self.cheque == None:
-					self.cheque = 'Fax/'
-				else:
-					self.cheque += 'Fax/'
-			if self.cheque == None:
-				self.cheque = '%s/' % (self.name)
-			else:
-				self.cheque += '%s/' % (self.name)
-			if self.cheque == None:
-				self.cheque = '%s' % (self.answer)
-			else:
-				self.cheque += '%s' % (self.answer)
+				if self.cheque == None: self.cheque = 'Fax/'
+				else: self.cheque += 'Fax/'
+			if self.cheque == None: self.cheque = '%s/' % (self.name)
+			else: self.cheque += '%s/' % (self.name)
+			if self.cheque == None: self.cheque = '%s' % (self.answer)
+			else: self.cheque += '%s' % (self.answer)
 			print('%s Операция прошла успешно √\n' % (self.r_text_back_a))
 			if self.ans_value == 'R' or self.ans_value == 'r':
 				print('----------------------------------\n%s %s\n%s Итог: %s-руб.\n----------------------------------' % (self.r_text_back_a, self.cheque, self.r_text_back_a, self.answer))
@@ -2594,11 +2103,11 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 			self.printing_time += '%s.' % (self.gl_time[1])
 		self.printing_time += '%sг. /' % (self.gl_time[0])
 		self.printing_time += ' %s' % (self.gl_time[3])
-		if min < 10:
+		if min <= 9:
 			self.printing_time += ':0%s' % (self.gl_time[4])
 		else:
 			self.printing_time += ':%s' % (self.gl_time[4])
-		if sec < 10:
+		if sec <= 9:
 			self.printing_time += ':0%sс.' % (self.gl_time[5])
 		else:
 			self.printing_time += ':%sс.' % (self.gl_time[5])
@@ -3056,15 +2565,12 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 			self.N = int(self.N)
 			if not self.N <= 0:
 				while True:
-					if self.N == 1:
-						break
-					if self.N % 2 == 0:
-						self.N = int(self.N / 2)
-						self.att += 1
-					elif int(self.N) % 2 == 1:
-						self.N = int(3 * self.N + 1)
-						self.att += 1
-					print('\r%s Число: %s                           \n%s Попытка: %s' % (self.r_text_back_a, self.N, self.r_text_back_a, self.att), end = " ")
+					if self.N == 1: break
+					if self.N % 2 == 0: self.N = int(self.N / 2)
+					elif int(self.N) % 2 == 1: self.N = int(3 * self.N + 1)
+					self.att += 1
+					print(' '*20,end='')
+					print('\r%s Число: %sn%s Попытка: %s' % (self.r_text_back_a, self.N, self.r_text_back_a, self.att), end = '')
 					sleep(0.1)
 				print('\n%s Число: %s прошло до 1 за %s комбинаций' % (self.r_text_back_a, self.answer, self.att))
 				self.att = 0
@@ -3109,9 +2615,7 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 			i.error('0g7503')
 	def Global_Command(self): # Пояснение ~всех команд клиента
 		self.exit_gl_command = 0
-		self.command_mode = 0
-		if self.ipp != None:
-			self.ipp = None
+		self.ipp = None
 		self.answer = input('Введите команду которую хотите проверить: ')
 		self.console_programm = 4
 		if len(self.answer) == 0:
@@ -3121,9 +2625,8 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 			i.main_menu()
 		elif i.iF_main_menu() != True and i.iF_gl_games() != True:
 			self.exit_gl_command = 0
-			if self.command_mode == 0:
-				self.audio_channel.play(self.MP3_Warning)
-				print('%s Такой команды нет или я пока что её не знаю...' % (self.r_text_back_a))
+			self.audio_channel.play(self.MP3_Warning)
+			print('%s Такой команды нет или я пока что её не знаю...' % (self.r_text_back_a))
 		if self.exit_gl_command == 0:
 			i.Global_Command()
 	def coin_pr(self, activate_menu = True, c = 0): # Проверка изменение стоимости валют в бирже
@@ -3149,10 +2652,8 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 			if self.developer_mode == True:
 				print(self.coin_Q)
 				print(self.active_coin_Q)
-				print(self.code_coin_Q)
 				print(self.coin_ruble)
 				print(self.active_coin_ruble)
-				print(self.code_coin_ruble)
 				print(self.ruble)
 				print(self.Q)
 		elif self.coin_ruble_Q_pos == True:
@@ -3162,73 +2663,53 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 				i.coin_pr(activate_menu = False, c = 1)
 				i.coin()
 	def coin(self, price_vision = None): # Строка биржи
-		self.position = 'coin_Q'
-		self.ifip = 0
-		if price_vision == None:
-			random = randint(0,1)
-		elif price_vision == False:
-			random = 0
-		elif price_vision == True:
-			random = 1
-		if random == 1:
+		self.position, self.ifip = 'coin_Q', 0
+		if randint(0,1) == 1 or price_vision == True:
 			i.animas(txt = '%s 1qC = %s рублей' % (self.r_text_back_a, self.coin_Q))
 		i.animas(n = 1, txt = 'Строка биржи:')
 		self.answer = input('Строка биржи: ')
 		if self.active_coin_Q == True:
 			self.global_t[0][2] = (self.global_t[0][1]-self.global_t[0][0]) // 300
-			if self.global_t[0][2] >= 1:
-				i.iF_coin_Q(True)
-			else:
-				i.iF_coin_Q(False)
-		elif self.active_coin_Q == False:
-			i.iF_coin_Q(False)
+			if self.global_t[0][2] >= 1: i.iF_coin_Q(True)
+			else: i.iF_coin_Q(False)
+		elif self.active_coin_Q == False: i.iF_coin_Q(False)
 	def iF_coin_Q(self, variability): # Проверка команды в бирже
 		if variability == True:
 			i.animas(loading = True, txt = '%s Продажа qC изменилась, требуется перезагрузка биржи' % (self.r_text_back_a))
 			self.coin_ruble_Q_pos = True
 			self.audio_channel.play(self.MP3_Warning)
 			self.pre_coin_Q = self.coin_Q
-			i.coin_pr(False)
-			i.iF_coin_Q(False)
+			i.coin_pr(False), i.iF_coin_Q(False)
 		elif variability == False:
 			if self.answer == '<' or\
 			self.answer == 'exit':
 				self.audio_channel.play(self.MP3_Off)
 				i.animas(loading = True, txt = '%s Выход из биржи' % (self.r_text_back_a))
 				i.main_menu()
-			elif len(self.answer) == 0:
+			elif len(self.answer) == 0: i.coin()
+			elif self.answer == 'Q' or self.answer == 'q' or self.answer == 'R' or self.answer == 'r':
+				if self.answer == 'R' or self.answer == 'r': symrel = 'рублей'
+				elif self.answer == 'Q' or self.answer == 'q': symrel = 'qC'
+				print('%s %s, в вашей копилке %s %s' % (self.r_text_back_a, self.name, self.Q, symrel))
 				i.coin()
-			elif self.answer == 'R' or self.answer == 'r':
-				print('%s %s, в вашей копилке %s рублей' % (self.r_text_back_a, self.name, self.ruble))
-				i.coin()
-			elif self.answer == 'Q' or self.answer == 'q':
-				print('%s %s, в вашей копилке %s qC' % (self.r_text_back_a, self.name, self.Q))
-				i.coin()
-			elif self.answer == 'bank':
-				i.bank()
+			elif self.answer == 'bank': i.bank()
 			elif self.answer == 'piggy':
 				print('%s %s, в вашей копилке %s рублей и %s qC' % (self.r_text_back_a, self.name, self.ruble, self.Q))
 				i.coin()
-			elif self.answer == 'price':
-				i.coin(True)
-			elif self.answer == 'rate':
-				i.rate_pr()
-			else:
-				i.mode_command_check()
+			elif self.answer == 'price': i.coin(True)
+			elif self.answer == 'rate': i.rate_pr()
+			else: i.mode_command_check()
 		else:
 			i.error('0g7503')
 	def rate_pr(self): # Проверка ставок
 		print('%s Проверка обновления ставок...' % (self.r_text_back_a))
 		sleep(0.2)
 		if self.rate_update != 1:
-			self.ip_pol_system = True
-			self.global_t[2][1] = time()
 			self.global_t[2][2] = (self.global_t[2][0] - self.global_t[2][1]) // 300
 		else:
-			self.ip_pol_system = True
-			self.global_t[2][1] = time()
 			self.global_t[2][2] = 1
 			self.rate_update = 0
+		self.global_t[2][1] = time()
 		if self.global_t[2][2] >= 1:
 			print('%s Обновление ставок...' % (self.r_text_back_a))
 			sleep(0.6)
@@ -3291,26 +2772,18 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 			i.animas( txt = '%s. "%s" продаёт %s%s за %s%s' % (y + 1, self.rate_name[y], self.rate_price[y], self.rate_price_coin[y], self.rate_profit[y], self.rate_profit_coin[y]))
 		i.rate_global()
 	def rate_global(self):
-		self.ip_pol_system = False
-		self.position = 'rate'
+		self.position, self.rate_ipp = 'rate', 0
 		self.answer = input('Строка ставок: ')
-		self.rate_ipp = 0
 		i.iF_rate_global()
 	def iF_rate_global(self): # Проверка команды в разделе биржи "Ставки"
 		if self.rate_ipp == 0:
-			if len(self.answer) == 0:
-				i.rate_global()
-			elif self.answer == 'buy':
-				i.rate_buy()
-			elif self.answer == 'update' or self.answer == 'Update':
-				self.rate_update = 1
-				i.rate_pr()
-			#elif self.answer == ''
+			if len(self.answer) == 0: i.rate_global()
+			elif self.answer == 'buy': i.rate_buy()
+			elif self.answer == 'update' or self.answer == 'Update': self.rate_update = 1, i.rate_pr()
 			elif self.answer == '<' or self.answer == 'exit':
 				print('%s Строка биржи' % (self.r_text_back_a))
 				i.coin()
-			else:
-				i.error('0g7502')
+			else: i.error('0g7502')
 		elif self.rate_ipp == 1:
 			self.if_for_global = False
 			for y in range(0, 10):
@@ -3335,12 +2808,9 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 								self.ruble = int(self.ruble) - int(self.rate_profit[y])
 							print('%s Сделка прошла успешно...\n%s Вы купили %s%s за %s%s' % (self.r_text_back_a, self.r_text_back_a, self.rate_price[y], self.rate_price_coin[y], self.rate_profit[y],\
 							self.rate_profit_coin[y]))
-							self.ip_pol_system = True
-							i.rate_pr()
 						elif int(self.rate_price[y]) > int(self.Q):
 							print('%s У вас %s недостаточно средств "%s%s" для совершения операции покупки...' % (self.r_text_back_a, self.pol_name, self.Q, self.rate_profit_coin[y]))
-							self.ip_pol_system = True
-							i.rate_pr()
+						i.rate_pr()
 					elif self.rate_price_coin[y] == 'ruble':
 						if int(self.rate_price[y]) <= int(self.ruble):
 							if self.developer_mode == True:
@@ -3354,26 +2824,21 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 								self.ruble = int(self.ruble) - int(self.rate_profit[y])
 							print('%s Сделка прошла успешно...\n%s Вы купили %s%s за %s%s' % (self.r_text_back_a, self.r_text_back_a, self.rate_price[y], self.rate_price_coin[y], self.rate_profit[y],\
 							self.rate_profit_coin[y]))
-							self.ip_pol_system = True
-							i.rate_pr()
 						elif int(self.rate_price[y]) > int(self.ruble):
 							print('%s У вас %s недостаточно средств "%s%s" для совершения операции покупки...' % (self.r_text_back_a, self.pol_name, self.ruble, self.rate_profit_coin[y]))
-							self.ip_pol_system = True
-							i.rate_pr()
+						i.rate_pr()
 			if self.if_for_global == False:
 				print('%s Мне не удалось найти совпадающие имена...' % (self.r_text_back_a))
 				self.audio_channel.play(self.MP3_Denial)
 				i.rate_pr()
 	def rate_buy(self): # Создание сделки в ставках
-		self.ip_pol_system = True
 		print('%s Чью ставку вы %s хотите купить?\n%s (Введите имя)' % (self.r_text_back_a, self.pol_name, self.r_text_back_a))
 		print('%s Ставки:' % (self.r_text_back_a))
-		if self.ip_pol_system == True:
-			for y in range(0, 10):
-				print('%s. "%s"' % (y + 1, self.rate_name[y]))
-			self.answer = input('Оформление сделки с : ')
-			self.rate_ipp = 1
-			i.iF_rate_global()
+		for y in range(0, 10):
+			print('%s. "%s"' % (y + 1, self.rate_name[y]))
+		self.answer = input('Оформление сделки с : ')
+		self.rate_ipp = 1
+		i.iF_rate_global()
 	def bank(self): # Банк биржи
 		self.ipp = None
 		self.position = 'bank_b0'
@@ -3392,24 +2857,20 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 			self.answer == 'r' or self.answer == 'rub':
 				if self.active_coin_Q == True:
 					print('%s %s, ставка на обмен q-монет: 1qC = %sруб. -> %sруб.\n%s Банк' % (self.r_text_back_a, self.name, self.pre_coin_Q, self.coin_Q, self.r_text_back_a))
-					self.ifip = 1
-					i.bank()
 				elif self.active_coin_Q == False:
 					print('%s %s, ставка на обмен q-монет: 1qC = %sруб. \n%s Банк' % (self.r_text_back_a, self.name, self.coin_Q, self.r_text_back_a))
-					self.ifip = 1
-					i.bank()
+				self.ifip = 1
+				i.bank()
 			elif self.answer == 'qC' or\
 			self.answer == 'q' or\
 			self.answer == 'coin_Q' or\
 			self.answer == 'Q':
 				if self.active_coin_ruble == True:
 					print('%s %s, ставка на обмен рублей: %sруб. -> %sруб. = 1qC\n%s Банк' % (self_r_text_back_a, self.name, self.pre_coin_Q, self.coin_Q, self.r_text_back_a))
-					self.ifip = 1
-					i.bank()
 				elif self.active_coin_ruble == False:
 					print('%s %s, ставка на обмен рублей: %sруб. = 1qC\n%s Банк' % (self.r_text_back_a, self.name, self.coin_Q, self.r_text_back_a))
-					self.ifip = 1
-					i.bank()
+				self.ifip = 1
+				i.bank()
 			elif self.answer == 'buy':
 				self.ifip = 0
 				i.buy_vaule()
@@ -3425,9 +2886,6 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 				print('%s %s, в копилке %s рублей и %sqC' % (self.r_text_back_a, self.name, self.ruble, self.Q))
 				self.ifip = 1
 				i.bank()
-			elif self.answer == 'credit':
-				print('%s %s, Предупреждаем кредит списывается автоматически на определённую сумму и его никак нельзя отменить!!!')
-				#i.bank_credit()
 			else:
 				i.mode_command_check()
 		elif b_ans == 1:
@@ -3435,18 +2893,13 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 			if len(self.answer) == 0:
 				self.ifip = 1
 				i.buy_vaule()
-			elif self.answer == 'ruble' or\
-			self.answer == 'r':
+			elif self.answer == 'r':
 				self.val = 'r'
 				i.buy_sum()
-			elif self.answer == 'qC' or\
-			self.answer == 'coin_Q' or\
-			self.answer == 'coin_q' or\
-			self.answer == 'q':
+			elif self.answer == 'q':
 				self.val = 'q'
 				i.buy_sum()
-			elif self.answer == '<' or\
-			self.answer == 'back':
+			elif self.answer == '<' or self.answer == 'exit':
 				self.audio_channel.play(self.MP3_Off)
 				self.ifip = 0
 				i.bank()
@@ -3457,8 +2910,7 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 			if len(self.answer) == 0:
 				self.ifip = 1
 				i.buy_sum_rel()
-			elif self.answer == '<' or\
-			self.answer == 'back':
+			elif self.answer == '<' or self.answer == 'exit':
 				self.ifip = 0
 				self.audio_channel.play(self.MP3_Off)
 				i.bank()
@@ -3496,23 +2948,18 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 		i.iF_bank(1)
 	def buy_sum(self): # Проверка суммы обмена валют
 		if self.val == 'r':
-			print('%s Сколько %s вы хотите обменять qC?' % (self.r_text_back_a, self.name))
-			if self.active_coin_Q == True:
-				print('%s %s, ставка на обмен q-монет: 1qC = %sруб. -> %sруб.\n%s Банк' % (self.r_text_back_a, self.name, self.pre_coin_Q, self.coin_Q, self.r_text_back_a))
-			elif self.active_coin_Q == False:
-				print('%s %s, ставка на обмен q-монет: 1qC = %sруб. \n%s Банк' % (self.r_text_back_a, self.name, self.coin_Q, self.r_text_back_a))
-			self.ifip = 0
-			i.buy_sum_rel()
+			symbel, symbel_1 = 'обменять', '1qC = %sруб.' % (self.coin_Q)
 		elif self.val == 'q':
-			print('%s Сколько %s вы хотите получить qC?' % (self.r_text_back_a, self.name))
-			if self.active_coin_ruble == True:
-				print('%s %s, ставка на обмен рублей: %sруб. -> %sруб. = 1qC\n%s Банк' % (self.r_text_back_a, self.name, self.pre_coin_Q, self.coin_Q, self.r_text_back_a))
-			elif self.active_coin_ruble == False:
-				print('%s %s, ставка на обмен рублей: %sруб. = 1qC\n%s Банк' % (self.r_text_back_a, self.name, self.coin_Q, self.r_text_back_a))
-			self.ifip = 0
-			i.buy_sum_rel()
+			symbel = 'получить'
 		else:
 			i.error('0g7502')
+		if self.val == 'r' or self.val == 'q':
+			print('%s Сколько %s вы хотите %s qC?' % (self.r_text_back_a, self.name, symbel))
+			if self.active_coin_Q == True:
+				symbel_1 = '1qC = %sруб. -> %sруб.' % (self.pre_coin_Q, self.coin_Q)
+			print('%s %s, ставка на обмен: %s\n%s Банк' % (self.r_text_back_a, self.name, symrel_1, self.r_text_back_a))
+			self.ifip = 0
+			i.buy_sum_rel()
 	def buy_sum_rel(self): # Ввод суммы обмена валютами
 		self.ipp = None
 		if self.ifip == 0:
@@ -3521,8 +2968,7 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 		self.x = 0
 		i.iF_bank(2)
 	def read_modepacks(self): # Проверка установленных модов
-		self.position = 'read_modes'
-		self.number_pos = 0
+		self.number_pos, inporting_pov_system, self.position = 0, 0, 'read_modes'
 		os.chdir('ModePack')
 		for root, dirs, files in os.walk(".", topdown = True):
 			for name in files:
@@ -3534,12 +2980,12 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 							if self.developer_mode == True:
 								print(os.path.join(name) == self.ModeFic_global[0][y])
 							if os.path.join(name) == self.ModeFic_global[0][y]:
-								self.inporting_pov_system = 1
+								inporting_pov_system = 1
 								break
-						if self.inporting_pov_system != 1:
+						if inporting_pov_system != 1:
 							self.ModeFic_global[0].append(os.path.join(name))
-						self.inporting_pov_system = 0
-					elif len(self.ModeFic_global[0]) == 0:
+						inporting_pov_system = 0
+					else:
 						self.ModeFic_global[0].append(os.path.join(name))
 					self.number_pos += 1
 				else:
@@ -3550,170 +2996,118 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 						i.error('0g7503')
 						break
 		if self.position != 'ERROR':
+			symbol = ''
 			os.chdir('..')
 			if self.save_data_all == True:
 				i.saving_data('ALL')
 			if self.number_pos > 0:
 				self.audio_channel.play(self.MP3_Open)
+				if len(self.ModeFic_global[0]) > 1:
+					symbol = 'ы'
 				if len(self.ModeFic_global[0]) != 0:
-					print('%s Мод(ы) установлен(ы)!\n...Мод(ы): ' % (self.r_text_back_a), end='')
+					print('...Мод%s: ' % (symbol), end='')
 					for x in self.ModeFic_global[0]:
-						if self.ModeFic_global[0].index(x) == len(self.ModeFic_global[0]):
-							print(x, end=', ')
-						else:
-							print(x)
+						if self.ModeFic_global[0].index(x) != len(self.ModeFic_global[0])-1: print(x, end=', ')
+						else: print(x)
 				else:
 					print('%s Никаких модов не установлено!' % (self.r_text_back_a))
-				if self.console_programm == 0:
-					i.console_start()
-				elif self.console_programm == 2:
-					i.main_menu()
 			else:
 				self.audio_channel.play(self.MP3_Off)
 				print('%s Моды не установлены или их нет в папке "ModePack"...' % (self.r_text_back_a))
-				if self.console_programm == 0:
-					i.console_start()
-				elif self.console_programm == 2:
-					i.main_menu()
+			i.mini_function('console_end_command')
 	def log_file_change(self, log_command): # LOG-команды из консоли
 		if log_command == 'log_read':
 			log = open('%s/log.log' % (self.dir_python_file))
 			print(log.read())
 			log.close()
-			if self.console_programm == 0:
-				i.console_start()
-			elif self.console_programm == 2:
-				i.main_menu()
 		elif log_command == 'log_clear':
 			log = open('%s/log.log' % (self.dir_python_file), 'w')
 			log.write('%s [%s] Clear file' % (self.r_text_back_a, asctime()))
 			log.close()
 			print('%s Очистка выполнина успешно' % (self.r_text_back_a))
 			self.audio_channel.play(self.MP3_Complete)
-			if self.console_programm == 0:
-				i.console_start()
-			elif self.console_programm == 2:
-				i.main_menu()
 		elif log_command == 'note':
 			self.answer = input('Напишите вашу заметку: ')
-			if self.answer == '<' or\
-			self.answer == 'exit' or\
-			self.answer == 'quit' or\
-			self.answer == 'back':
+			if self.answer == '<' or self.answer == 'exit':
 				print('%s Заметка отменена' % (self.r_text_back_a))
 				self.audio_channel.play(self.MP3_Denial)
-				if self.console_programm == 0:
-					i.console_start()
-				elif self.console_programm == 2:
-					i.main_menu()
 			else:
 				if self.answer.find(R'\n') == -1:
-					note = open('%s/note.txt' % (self.dir_python_file))
-					note_txt = note.read()
-					note.close()
+					note_txt = i.mini_function('note')
 					note = open('%s/note.txt' % (self.dir_python_file), 'w')
 					note.write('%s\n[%s] %s Заметка %s: "%s"' % (note_txt, asctime(), self.r_text_back_a, self.pol_name, self.answer))
 					print('<%s Ваша заметка записана через ярлык "Notes" в текстовый документ "note.txt"\n<%s Заметка %s: "%s"' % (self.r_text_back_a, self.r_text_back_a, self.pol_name, self.answer))
 					self.audio_channel.play(self.MP3_Complete)
 					note.close()
-					if self.console_programm == 0:
-						i.console_start()
-					elif self.console_programm == 2:
-						i.main_menu()
 				else:
 					i.error('0g7503')
-		elif log_command == 'log_fake_error' or\
-		log_command == 'log_fake' or\
-		log_command == 'log_0g7505':
-			log = open('%s/log.log' % (self.dir_python_file))
-			log_txt = log.read()
-			log.close()
+		elif log_command == 'log_fake_error' or log_command == 'log_fake' or log_command == 'log_0g7505':
+			log_txt = i.mini_function('log')
 			log = open('%s/log.log' % (self.dir_python_file),'w')
 			log.write('%s\n%s [%s] Error 0g7505: Fake error///' % (log_txt, self.r_text_back_a, asctime()))
 			log.close()
-			print('%s Ложная ошибка записана в log.log\n%s Fake error///' % (self.r_text_back_a, self.r_text_back_a))
+			print('%s Fake error///' % (self.r_text_back_a))
 			self.audio_channel.play(self.MP3_Warning)
-			if self.console_programm == 0:
-				i.console_start()
-			elif self.console_programm == 2:
-				i.main_menu()
-		else:
-			i.error('0g7503')
+		else: i.error('0g7503')
+		if self.position != 'ERROR': i.mini_function('console_end_command')
 	def mode_activate(self): # Активация команды в моде
-		log = open('%s/log.log' % (self.dir_python_file))
-		log_txt = log.read()
-		log.close()
 		position_mode = self.ModeFic_global[6]
 		for_num = self.ModeFic_global[4][self.x]
 		begin_number = int(self.ModeFic_global[5][self.x])
-		if len(position_mode) - 1 >= self.x:
-			if position_mode[self.x] == self.position:
-				for y in range(0,int(for_num)):
-					if self.developer_mode == True:
-						print('Начальный индекс: %s' % (self.x))
-						print('Дополнительный индекс: %s' % (y))
-						print('Сколько действий в команде:', for_num)
-						print('Все начала отсчёта: %s' % (self.ModeFic_global[5]))
-						print('Все названия функций для выполнения: %s' % (self.ModeFic_global[2]))
-						print('Все итоги выполнения функций: %s' % (self.ModeFic_global[3]))
-					Modefic_com = self.ModeFic_global[2][begin_number + y]
-					Modefic_com_visual = self.ModeFic_global[3][begin_number + y]
-					if len(self.ModeFic_global[9]) > 0 and 'sleep' in self.ModeFic_global[3]:
-						sleep_print_mode = self.ModeFic_global[9][y]
-					if len(self.ModeFic_global[10]) > 0 and 'log' in self.ModeFic_global[3]:
-						log_write = self.ModeFic_global[10][y]
-					if self.position != 'ERROR':
-						if Modefic_com == 'pr' or Modefic_com == 'print':
-							print('%s %s' % (self.r_text_back_a, Modefic_com_visual))
-						elif Modefic_com == 'cl':
-							if Modefic_com_visual == 'console_start' or Modefic_com_visual == 'con_st':
-								self.console_programm = 0
-								i.console_start()
-							elif Modefic_com_visual == 'main_menu' or Modefic_com_visual == 'menu':
-								i.main_menu()
-							elif Modefic_com_visual == 'coin' or Modefic_com_visual == 'C' or Modefic_com_visual == '$':
-								i.coin_pr(True)
-							else:
-								if Modefic_com_visual != '0':
-									i.error('0g7504')
-								else:
-									i.main_menu()
-						elif Modefic_com == 'log':
-							log = open('%s/log.log' % (self.dir_python_file),'w')
-							if Modefic_com_visual == '__fake__':
-								log.write('%s\n%s [%s] Error 0g7505: Fake error///' % (log_txt, self.r_text_back_a, asctime()))
-							elif Modefic_com_visual == '__text__':
-								log.write('%s\n%s' % (log_txt, log_write))
-							else:
-								log.write('%s\n%s [%s] %s' % (log_txt, self.r_text_back_a, asctime(), Modefic_com_visual))
-							log.close()
-							print('%s text log is write' % (self.r_text_back_a))
-						elif Modefic_com == 'sleep':
-							if sleep_print_mode == 'True':
-								print('< ..sleeping.. >')
-								self.audio_channel.play(self.MP3_Warning)
-							elif sleep_print_mode == 'False':
-								log = open('%s/log.log' % (self.dir_python_file),'w')
-								log.write('%s\n%s [%s] < ..Active command "%s" and sleeping %ssec.. >' % (log_txt, self.r_text_back_a, asctime(), self.answer, Modefic_com_visual))
-								log.close()
-							sleep(int(Modefic_com_visual))
-							if sleep_print_mode == 'False':
-								log = open('%s/log.log' % (self.dir_python_file),'w')
-								log.write('%s\n%s [%s] < ..Active command "%s" and (END) sleeping %ssec .. >' % (log_txt, self.r_text_back_a, asctime(), self.answer, Modefic_com_visual))
-								log.close()
+		if position_mode[self.x] == self.position:
+			for y in range(0,int(for_num)):
+				if self.developer_mode == True:
+					print('Начальный индекс: %s' % (self.x))
+					print('Дополнительный индекс: %s' % (y))
+					print('Сколько действий в команде:', for_num)
+					print('Все начала отсчёта: %s' % (self.ModeFic_global[5]))
+					print('Все названия функций для выполнения: %s' % (self.ModeFic_global[2]))
+					print('Все итоги выполнения функций: %s' % (self.ModeFic_global[3]))
+				log_txt = i.mini_function('log')
+				Modefic_com = self.ModeFic_global[2][begin_number + y]
+				Modefic_com_visual = self.ModeFic_global[3][begin_number + y]
+				if len(self.ModeFic_global[9]) > 0 and 'sleep' in self.ModeFic_global[3]:
+					sleep_print_mode = self.ModeFic_global[9][y]
+				if len(self.ModeFic_global[10]) > 0 and 'log' in self.ModeFic_global[3]:
+					log_write = self.ModeFic_global[10][y]
+				if self.position != 'ERROR':
+					if Modefic_com == 'print':
+						print('%s %s' % (self.r_text_back_a, Modefic_com_visual))
+					elif Modefic_com == 'cl':
+						if Modefic_com_visual == 'console_start' or Modefic_com_visual == 'con_st': self.console_programm = 0, i.console_start()
+						elif Modefic_com_visual == 'main_menu' or Modefic_com_visual == 'menu': i.main_menu()
+						elif Modefic_com_visual == 'coin' or Modefic_com_visual == 'C' or Modefic_com_visual == '$': i.coin_pr(True)
 						else:
-							i.error('0g7504')
+							if Modefic_com_visual != '0': i.error('0g7504')
+							else: i.main_menu()
+					elif Modefic_com == 'log':
+						log = open('%s/log.log' % (self.dir_python_file),'w')
+						if Modefic_com_visual == '__fake__':
+							log_text_print = '%s\n%s [%s] Error 0g7505: Fake error///' % (log_txt, self.r_text_back_a, asctime())
+						elif Modefic_com_visual == '__text__':
+							log_text_print = '%s\n%s' % (log_txt, log_write)
+						else:
+							log_text_print = '%s\n%s [%s] %s' % (log_txt, self.r_text_back_a, asctime(), Modefic_com_visual)
+						print(log.write('%s' % (log_text_print)))
+						log.close()
+					elif Modefic_com == 'sleep':
+						if sleep_print_mode == 'True':
+							print('< ..sleeping.. >')
+							self.audio_channel.play(self.MP3_Warning)
+						elif sleep_print_mode == 'False':
+							log = open('%s/log.log' % (self.dir_python_file),'w')
+							log.write('%s\n%s [%s] < ..Active command "%s" and sleeping %ssec.. >' % (log_txt, self.r_text_back_a, asctime(), self.answer, Modefic_com_visual))
+							log.close()
+						sleep(int(Modefic_com_visual))
 					else:
-						i.error('0g7502')
-				if self.position != 'ERROR' and Modefic_com_visual == '0':
-					i.main_menu()
-			elif position_mode[self.x] != self.position:
-				self.x += 1
-				i.mode_activate()
-			else:
-				i.error('0g7502')
-		else:
-			i.error('0g7502')
+						i.error('0g7504')
+						self.position = 'noneCOMMAND'
+						break
+				else:
+					i.error('0g7502')
+			if (self.position != 'ERROR' and Modefic_com_visual == '0' and self.re_boot != 1) or self.position == 'noneCOMMAND': i.main_menu()
+		elif position_mode[self.x] != self.position: self.x += 1, i.mode_activate()
+		else: i.error('0g7502')
 	def saving_data(self, save):
 		if self.developer_mode == True:
 			print('<<><><>>')
@@ -3721,14 +3115,14 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 			print(self.ruble)
 		if save == 'Data_system' or save == 'ALL':
 			self.file = open('%s/Saven.dll' % (self.dir_python_file),'w')
-			self.file.write('{%s;%s;%s;%s;%s;%s;%s;%s;%s}' %\
+			self.file.write('%s;%s;%s;%s;%s;%s;%s;%s;%s.' %\
 			(self.pos_txt_system, self.number_pos, self.global_command_number_system, \
 			self.chill_change_return, self.sleep_night, self.developer_mode, \
 			self.save_data_all, self.activate_magic_loading, self.desktop_log))
 			self.file.close()
 		if save == 'Coin' or save == 'ALL':
 			self.file = open('%s/Coin.txt' % (self.dir_python_file), 'w')
-			self.file.write('Q[%s;%s;#0001:P(%s;%s;#0002)]{Q[%s]:P[%s]}' % (self.coin_Q, self.active_coin_Q, self.coin_ruble, self.active_coin_ruble, self.Q, self.ruble))
+			self.file.write('%s;%s;%s;%s{%s:%s}' % (self.coin_Q, self.active_coin_Q, self.coin_ruble, self.active_coin_ruble, self.Q, self.ruble))
 			self.file.close()
 		if save == 'Data_mode' or save == 'ALL':
 			self.file = open('%s/Saven_Mods.dll' % (self.dir_python_file), 'w')
@@ -3763,16 +3157,20 @@ class II(Command_importing, Brower, Console, Error): # Глобальный кл
 		self.audio_channel.play(self.MP3_Warning)
 		i.animas(n = 1, txt = '%s, вы хотите завершить работу?:' % (self.name))
 		self.answer = input('%s, вы хотите завершить работу?: ' % (self.name))
-		if self.answer == 'yes' or\
-		self.answer == '+' or\
-		self.answer == 'да':
+		if self.answer == 'yes' or self.answer == '+' or self.answer == 'да':
 			if self.save_data_all == False:
 				i.saving_data('ALL')
-			i.exit_poduct()
-			sleep(0.9)
-		elif self.answer == 'no' or\
-		self.answer == 'нет' or\
-		self.answer == '-':
+			self.file = open('%s/TF/ClosepanelQRTG.tf' % (self.dir_python_file), 'w'), self.file.close()
+			sleep(0.12)
+			self.audio_channel.play(self.MP3_Bye_file)
+			self.audio_channel.play(self.MP3_Client_byebye)
+			self.exit_file = True
+			i.animas(txt = '%s Завершение работы...' % (self.r_text_back_a))
+			sleep(2)
+			if self.chill_change_return == 1:
+				self.chill_change.kill()
+			sys.exit(0)
+		elif self.answer == 'no' or self.answer == 'нет' or self.answer == '-':
 			self.audio_channel.play(self.MP3_Complete)
 			i.animas(loading = True, txt = '%s Продолжаем' % (self.r_text_back_a))
 			sleep(0.9)
@@ -3791,8 +3189,8 @@ i.brower_chrome = webdriver.Chrome(chrome_options=options)# Открытие б�
 #txt_code = i.brower_chrome.find_element_by_css_selector("pre")# Чтение закодированного текста
 #print(txt_code.text)
 i.jik_read('0_1.viu', open('%s/Viu/0_1.viu' % (i.dir_python_file)))
-i.txting = ''
-i.txt = None
+i.jik_read('0_4.viu', open('%s/Viu/0_4.viu' % (i.dir_python_file)))
+i.audio_channel.set_volume(i.audio_vol)
 i.start_job()
 if i.developer_mode == True:
 	print('Выход из файла: ', i.exit_file)
